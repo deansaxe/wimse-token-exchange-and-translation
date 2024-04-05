@@ -19,14 +19,14 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
+title: "wimse-token-exchange"
 abbrev: "TODO - Abbreviation"
 category: info
 
-docname: draft-todo-yourname-protocol-latest
+docname: draft-wimse-token-exchange-saxe-protocol-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
-number:
-date:
+number: 1
+date: 
 consensus: true
 v: 3
 area: AREA
