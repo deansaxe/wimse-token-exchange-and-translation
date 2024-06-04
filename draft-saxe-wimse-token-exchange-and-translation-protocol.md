@@ -19,8 +19,8 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "wimse-token-exchange"
-abbrev: "TODO - Abbreviation"
+title: "WIMSE Token Exchange and Translation Protocol"
+abbrev: "WIMSE Token Exchange & Translation"
 category: info
 
 docname: draft-wimse-token-exchange-saxe-protocol-latest
@@ -30,25 +30,29 @@ date:
 consensus: true
 v: 3
 area: AREA
-workgroup: WG Working Group
+workgroup: WIMSE
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - workload identity
+ - token exchange
+ - token translation
 venue:
-  group: WG
+  group: WIMSE
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
-  github: USER/REPO
+  github: dhs-aws/wimse-token-exch-design-team
   latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Dean H. Saxe
+    organization: Amazon Web Services
+    email: deansaxe@amazon.com
 
+    fullname: George Fletcher
+    organization: Capital One
+    email: george.fletcher@capitalone.com
+    
 normative:
 
 informative:
