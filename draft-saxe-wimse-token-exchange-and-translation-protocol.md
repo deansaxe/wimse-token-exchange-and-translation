@@ -44,12 +44,11 @@ venue:
   latest: https://example.com/LATEST
 
 author:
- -
-    fullname: Dean H. Saxe
+ -  fullname: Dean H. Saxe
     organization: Amazon Web Services
     email: deansaxe@amazon.com
 
-    fullname: George Fletcher
+ -  fullname: George Fletcher
     organization: Capital One
     email: george.fletcher@capitalone.com
     
