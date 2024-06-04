@@ -19,8 +19,8 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "WIMSE Token Exchange and Translation Protocol"
-abbrev: "WIMSE Token Exchange & Translation"
+title: WIMSE Token Exchange and Translation Protocol
+abbrev: WIMSE Token Exchange & Translation
 category: info
 
 docname: draft-saxe-wimse-token-exchange-and-translation-protocol
