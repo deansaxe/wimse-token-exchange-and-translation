@@ -36,7 +36,7 @@ keyword:
  - token exchange
  - token translation
 venue:
-  group: WIMSE
+  group: Worload Identity in Multi System Environments
   type: Working Group
   mail: WG@example.com
   arch: https://example.com/WG
@@ -59,14 +59,33 @@ informative:
 
 --- abstract
 
-The following document defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, id_tokens, and SAML assertions for new OAuth access or refresh tokens.  However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by RFC8693.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  Therefore, we define these potentially lossy conversions as token translation (e.g. information is lost in translation).  In this document we describe the process and mechanisms for token exchange, using the existing mechanisms in RFC8693, and a new set of potentially lossy translations between arbitrary token types.  The authors expect that specific token translations will be profiled to ensure consistent handling across deployments. 
-
+The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, id_tokens, and SAML assertions for new OAuth access or refresh tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by RFC8693.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe the process and mechanisms for token exchange, using the existing mechanisms in RFC8693, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc TODO>.
 
 --- middle
 
 # Introduction
 
-TODO
+Define the need for token exchange & translation - refer to the use cases. 
+
+## Token Translation Endpoint
+
+## Token Exchange vs. Token Translation
+
+TODO - define exchange vs. translation in terms of RFC8693 and WS-Trust. Translation may be perfect or introduce lost context
+
+## Lossy Translation
+
+TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information? 
+TODO - provide a specific lossy scenario and use case.
+
+## Token Context Enrichment
+
+TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common.
+
+## Token Translation Profiles
+
+TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.
+
 
 
 # Conventions and Definitions
