@@ -59,14 +59,14 @@ informative:
 
 --- abstract
 
-TODO Abstract
+The following document defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, id_tokens, and SAML assertions for new OAuth access or refresh tokens.  However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by RFC8693.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  Therefore, we define these potentially lossy conversions as token translation (e.g. information is lost in translation).  In this document we describe the process and mechanisms for token exchange, using the existing mechanisms in RFC8693, and a new set of potentially lossy translations between arbitrary token types.  The authors expect that specific token translations will be profiled to ensure consistent handling across deployments. 
 
 
 --- middle
 
 # Introduction
 
-TODO Introduction
+TODO
 
 
 # Conventions and Definitions
