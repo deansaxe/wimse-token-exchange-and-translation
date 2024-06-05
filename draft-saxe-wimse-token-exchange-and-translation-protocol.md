@@ -29,19 +29,19 @@ number: 1
 date:
 consensus: true
 v: 3
-area: AREA
-workgroup: WIMSE
+area: "Applications and Real-Time"
+workgroup: "Workload Identity in Multi System Environments"
 keyword:
  - workload identity
  - token exchange
  - token translation
 venue:
-  group: WIMSE
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: dhs-aws/wimse-token-exch-design-team
-  latest: https://example.com/LATEST
+  group: "Workload Identity in Multi System Environments"
+  type: "Working Group"
+  mail: "wimse@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
+  github: "dhs-aws/wimse-token-exch-design-team"
+  latest: "https://dhs-aws.github.io/wimse-token-exch-design-team/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
 
 author:
  -  fullname: Dean H. Saxe
