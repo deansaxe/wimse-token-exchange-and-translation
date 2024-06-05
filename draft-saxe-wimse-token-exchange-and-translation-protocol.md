@@ -23,7 +23,7 @@ title: WIMSE Token Exchange and Translation Protocol
 abbrev: WIMSE Token Exchange & Translation
 category: info
 
-docname: draft-saxe-wimse-token-exchange-and-translation-protocol
+docname: draft-saxe-wimse-token-exchange-and-translation-protocol-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number: 1
 date: 
