@@ -26,7 +26,7 @@ category: info
 docname: draft-saxe-wimse-token-exchange-and-translation-protocol-latest
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number: 1
-date: 
+date: 2024-06-04
 consensus: true
 v: 3
 area: AREA
