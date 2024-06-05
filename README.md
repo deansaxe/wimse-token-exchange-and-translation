@@ -1,16 +1,31 @@
-# Internet-Draft Template Repository
+# WIMSE Token Exchange and Translation Protocol
 
-Use this repository as a template if you want to start working on
-[IETF](https://www.ietf.org/) documents.
+This is the working area for the individual Internet-Draft, "WIMSE Token Exchange and Translation Protocol".
 
-[Read the
-instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/TEMPLATE.md)
-for more information.
+* [Editor's Copy](https://dhs-aws.github.io/wimse-token-exch-design-team/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.html)
+* [Datatracker Page](https://datatracker.ietf.org/doc/draft-saxe-wimse-token-exchange-and-translation-protocol)
+* [Individual Draft](https://datatracker.ietf.org/doc/html/draft-saxe-wimse-token-exchange-and-translation-protocol)
+* [Compare Editor's Copy to Individual Draft](https://dhs-aws.github.io/wimse-token-exch-design-team/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.diff)
 
-Once you have created your own repository, start work by:
 
-1. Set "Workflow permissions" to "Read and write permissions"
-   [in the repository settings](../../settings/actions#actions_default_workflow_permissions_write).
+## Contributing
 
-2. Rename the `draft-todo-yourname-protocol.md` file
-   [here](../../edit/main/draft-todo-yourname-protocol.md).
+See the
+[guidelines for contributions](https://github.com/dhs-aws/wimse-token-exch-design-team/blob/main/CONTRIBUTING.md).
+
+Contributions can be made by creating pull requests.
+The GitHub interface supports creating pull requests using the Edit (✏) button.
+
+
+## Command Line Usage
+
+Formatted text and HTML versions of the draft can be built using `make`.
+
+```sh
+$ make
+```
+
+Command line usage requires that you have the necessary software installed.  See
+[the instructions](https://github.com/martinthomson/i-d-template/blob/main/doc/SETUP.md).
+
+
