@@ -79,27 +79,24 @@ Token translation fills a gap that workloads must reinvent today.  For example, 
 
 Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles.  Profiles are not required when the input and output token are the same type.  Not all token input/output pairs are expected to be profiled.  During translation, the token translation service (TTS) may add, replace, or remove contextual data including attestations, validity constraints, and subjects. Cryptographic operations on the tokens may be replaced or supplemented, such as by adding PQC algorithms to a token encrypted and signed with classical algorithms.  For each use case defined in <USE CASES DOC>, this document defines the protocol requirements.
 
-Different token types, formats, encodings, crypto and public key
-Additional context or attestation added
-Replaced context or attestation
-Context or attestation removal
-Transaction tokens
-Validity constraints
-Identity change between domains
-
-
 ## Token Translation Endpoint
 
 TODO - Define a new translation endpoint.
 
 ## Token Context Enrichment
 
-TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common.
+TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token. 
 
 ## Lossy Translation
 
 TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information? 
 TODO - provide a specific lossy scenario and use case.
+
+Translation may be lossy or lossless, such as when exchanging an input token for an output token of the same format.
+
+For example, assume the token translation endpoint receives a input SAML token with signed claims over the user's full name, user ID, email address, and a list of groups.  The output token format, T, only carries the user ID and list of groups (in addition to signatures and other metadata).  The token translation endpoint will follow the SAML -> T profile, mapping the context from input to output tokens, and dropping the user's full name and email address in the output token.  While data loss has occurred, the data lost was meaningless to the downstream systems consuming the token, T.  Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation chains.
+
+
 
 ## Token Translation Profiles
 
@@ -112,7 +109,9 @@ TODO - this draft does not define normative specs for translating from arbitrary
 
 # Security Considerations
 
-TODO Security
+TODO Security - data loss in token translation may impact authZ decisions.  Be careful when allowing multiple token translations since losses may grow over each step of translation.
+
+Embedding input tokens into output tokens can reduce this risk by allowing more complete context, at the risk of expanding the token size beyond what is practical.
 
 
 # IANA Considerations
