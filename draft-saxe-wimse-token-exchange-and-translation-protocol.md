@@ -36,12 +36,12 @@ keyword:
  - token exchange
  - token translation
 venue:
-  group: Worload Identity in Multi System Environments
-  type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
-  github: dhs-aws/wimse-token-exch-design-team
-  latest: https://example.com/LATEST
+  group: "Workload Identity in Multi System Environments"
+  type: "Working Group"
+  mail: "wimse@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
+  github: "dhs-aws/wimse-token-exch-design-team"
+  latest: "https://dhs-aws.github.io/wimse-token-exch-design-team/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
 
 author:
  -  fullname: Dean H. Saxe
