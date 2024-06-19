@@ -1,24 +1,4 @@
 ---
-###
-# Internet-Draft Markdown Template
-#
-# Rename this file from draft-todo-yourname-protocol.md to get started.
-# Draft name format is "draft-<yourname>-<workgroup>-<name>.md".
-#
-# For initial setup, you only need to edit the first block of fields.
-# Only "title" needs to be changed; delete "abbrev" if your title is short.
-# Any other content can be edited, but be careful not to introduce errors.
-# Some fields will be set automatically during setup if they are unchanged.
-#
-# Don't include "-00" or "-latest" in the filename.
-# Labels in the form draft-<yourname>-<workgroup>-<name>-latest are used by
-# the tools to refer to the current version; see "docname" for example.
-#
-# This template uses kramdown-rfc: https://github.com/cabo/kramdown-rfc
-# You can replace the entire file if you prefer a different format.
-# Change the file extension to match the format (.xml for XML, etc...)
-#
-###
 title: WIMSE Token Exchange and Translation Protocol
 abbrev: WIMSE Token Exchange & Translation
 category: info
@@ -65,23 +45,15 @@ The specification defines the processes of token exchange and token translation 
 
 # Introduction
 
-TODO: Define the need for token exchange & translation - refer to the use cases. 
-
 This specification defines a protocol for converting from one security token to another with support for both lossless and lossy conversions.  We refer to the lossless exchange as "token exchange" following the model defined in OAuth 2.0 Token Exchange {{RFC8693}}.  In this document we profile {{RFC8693}} to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token where no data is lost during the exchange.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  The terms Security Token, Security Token Service (STS), delegation, and impersonation are used in this document following the definitions in {{RFC8693}}.
 
-Within the realm of workload identities, there are numerous types of security tokens that are commonly used including SPIFFE SVIDs, OAuth 2.0 Bearer Access Token {{RFC6750}}, and x.509 certificates. Additionally, security tokens are encoded in multiple formats such as JSON, CBOR, and protobufs.  In order to provide a mechanism for interoperability between different workloads we require the ability to convert from one token type or encoding to another for use across disparate systems.  
+Within the realm of workload identities, there are numerous types of security tokens that are commonly used including SPIFFE SVIDs, OAuth 2.0 Bearer Access Tokens {{RFC6750}}, and x.509 certificates. Additionally, security tokens are encoded in multiple formats such as JSON, CBOR, and protobufs.  In order to provide a mechanism for interoperability between different workloads we require the ability to convert from one token type or encoding to another for use across disparate systems.  
 
-In addition to translating security tokens between different types and formats, workload identity systems must be able to support changing the cryptographic properties of tokens, embedding tokens in one another, change the embedded context in a token, change the validity constraints, change or add subjects to the token, or add sender constraints.  The use cases for token exchange and translation are further described in https://github.com/yaroslavros/wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-tokentranslation-requirements.md. (todo: replace with a link to the ID once published.)
+In addition to translating security tokens between different types and formats, workload identity systems must be able to support changing the cryptographic properties of tokens, embedding tokens in one another, change the embedded context in a token, change the validity constraints, change or add subjects to the token, or add sender constraints.  This set of use cases for token exchange and translation are further described in https://github.com/yaroslavros/wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-tokentranslation-requirements.md. (todo: replace with a link to the ID once published.)
 
-This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in <USE CASES DOC>.
+Token translation fills a gap that development teams must solve for themselves today without standardized mechanisms.  For example, a common SPIFFE use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  This is accomplished by creating an OpenID Provider (OP) in the Kubernetes cluster and configuring AWS IAM as a Relying Party (RP) to obtain an ID token from the SPIFFE service. Using the id token, AWS STS AssumeRoleWithWebIdentity generates temporary sigV4 credentials for AWS allowing the workload to assume an AWS role and any permissions assigned to that role.  Similar mechanisms have been designed to support multiple cloud providers in the absence of standardized protocols.
 
-## Token Exchange vs. Token Translation
-
-TODO - define exchange vs. translation in terms of RFC8693 and WS-Trust. Translation may be perfect or introduce lost context
-
-Token translation fills a gap that workloads must reinvent today.  For example, a common SPIFFE workload use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  <describe in broad terms https://spiffe.io/docs/latest/keyless/oidc-federation-aws/ or or similar for Google, etc.>
-
-Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles.  Profiles are not required when the input and output token are the same type.  Not all token input/output pairs are expected to be profiled.  During translation, the token translation service (TTS) may add, replace, or remove contextual data including attestations, validity constraints, and subjects. Cryptographic operations on the tokens may be replaced or supplemented, such as by adding PQC algorithms to a token encrypted and signed with classical algorithms.  For each use case defined in <USE CASES DOC>, this document defines the protocol requirements.
+Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in <USE CASES DOC>.  Not all token input/output pairs are expected to be profiled.
 
 ## Token Translation Endpoint
 
