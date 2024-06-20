@@ -68,9 +68,10 @@ TODO - what context do we enrich tokens with during translation? Embedding token
 TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information? 
 TODO - provide a specific lossy scenario and use case.
 
-Translation may be lossy or lossless, such as when exchanging an input token for an output token of the same format.
+Translation may be lossless, such as when exchanging an input token for an output token of the same format, or lossy when exchanging an input token for an output token of a different format. An example of lossy translation is detailed in the example above.  In this case, the aud claim of the id token maps to the AWS IAM role used to create the AWS temporary credentials. 
+The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context. 
 
-For example, assume the token translation endpoint receives a input SAML token with signed claims over the user's full name, user ID, email address, and a list of groups.  The output token format, T, only carries the user ID and list of groups (in addition to signatures and other metadata).  The token translation endpoint will follow the SAML -> T profile, mapping the context from input to output tokens, and dropping the user's full name and email address in the output token.  While data loss has occurred, the data lost was meaningless to the downstream systems consuming the token, T.  Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation chains.
+Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation.
 
 
 
