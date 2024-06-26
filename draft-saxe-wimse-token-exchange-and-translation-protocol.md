@@ -23,7 +23,7 @@ title: WIMSE Token Exchange and Translation Protocol
 abbrev: WIMSE Token Exchange & Translation
 category: info
 
-docname: draft-saxe-wimse-token-exchange-and-translation-protocol-latest
+docname: draft-saxe-wimse-token-exchange-and-translation-protocol
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number: 1
 date:
@@ -67,7 +67,7 @@ The specification defines the processes of token exchange and token translation 
 
 TODO: What is a security token?  What is a STS? (see https://datatracker.ietf.org/doc/html/rfc8693, the intro has great definitions)
 
-TODO: Define the need for token exchange & translation - refer to the use cases. 
+TODO: Define the need for token exchange & translation - refer to the use cases.
 
 This specification defines a protocol for converting from one security token to another with support for high fidelity and lossy conversions.  We refer to the high fidelity exchange as "token exchange" as has been embodied in OAuth 2.0 Token Exchange (RFC8693).  We profile RFC8693 to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type, and the protocol herein is sufficient to meet the use cases defined in <USE CASES DOC>.
 
@@ -94,11 +94,11 @@ Token translation accounts for different token types, formats, encodings, and en
 
 ## Token Context Enrichment
 
-TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token. 
+TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token.
 
 ## Lossy Translation
 
-TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information? 
+TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information?
 TODO - provide a specific lossy scenario and use case.
 
 Translation may be lossy or lossless, such as when exchanging an input token for an output token of the same format.
