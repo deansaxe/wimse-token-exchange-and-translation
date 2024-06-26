@@ -71,17 +71,26 @@ TODO: Define the need for token exchange & translation - refer to the use cases.
 
 This specification defines a protocol for converting from one security token to another with support for high fidelity and lossy conversions.  We refer to the high fidelity exchange as "token exchange" as has been embodied in OAuth 2.0 Token Exchange (RFC8693).  We profile RFC8693 to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type, and the protocol herein is sufficient to meet the use cases defined in <USE CASES DOC>.
 
-## Token Exchange vs. Token Translation
+
+# Notational Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
+
+
+# Terminology
+
+TODO: Define terms used by this specification
+
+
+# Overview
+
+TODO: high level description of the token translation flow
 
 TODO - define exchange vs. translation in terms of RFC8693 and WS-Trust. Translation may be perfect or introduce lost context
 
 Token translation fills a gap that workloads must reinvent today.  For example, a common SPIFFE workload use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  <describe in broad terms https://spiffe.io/docs/latest/keyless/oidc-federation-aws/ or or similar for Google, etc.>
 
 Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles.  Profiles are not required when the input and output token are the same type.  Not all token input/output pairs are expected to be profiled.  During translation, the token translation service (TTS) may add, replace, or remove contextual data including attestations, validity constraints, and subjects. Cryptographic operations on the tokens may be replaced or supplemented, such as by adding PQC algorithms to a token encrypted and signed with classical algorithms.  For each use case defined in <USE CASES DOC>, this document defines the protocol requirements.
-
-## Token Translation Endpoint
-
-TODO - Define a new translation endpoint.
 
 ## Token Context Enrichment
 
@@ -97,8 +106,11 @@ Translation may be lossy or lossless, such as when exchanging an input token for
 For example, assume the token translation endpoint receives a input SAML token with signed claims over the user's full name, user ID, email address, and a list of groups.  The output token format, T, only carries the user ID and list of groups (in addition to signatures and other metadata).  The token translation endpoint will follow the SAML -> T profile, mapping the context from input to output tokens, and dropping the user's full name and email address in the output token.  While data loss has occurred, the data lost was meaningless to the downstream systems consuming the token, T.  Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation chains.
 
 
+# Token Translation Endpoint
 
-## Token Translation Profiles
+TODO - Define a new translation endpoint.
+
+# Token Translation Profiles
 
 TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.
 
