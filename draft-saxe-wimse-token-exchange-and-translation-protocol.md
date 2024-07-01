@@ -47,7 +47,7 @@ The specification defines the processes of token exchange and token translation 
 
 This specification defines a protocol for converting from one security token to another with support for both lossless and lossy conversions.  We refer to the lossless exchange as "token exchange" following the model defined in OAuth 2.0 Token Exchange {{RFC8693}}.  In this document we profile {{RFC8693}} to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token where no data is lost during the exchange.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  The terms Security Token, Security Token Service (STS), delegation, and impersonation are used in this document following the definitions in {{RFC8693}}.
 
-Within the realm of workload identities, there are numerous types of security tokens that are commonly used including SPIFFE SVIDs, OAuth 2.0 Bearer Access Tokens {{RFC6750}}, and x.509 certificates. Additionally, security tokens are encoded in multiple formats such as JSON, CBOR, and protobufs.  In order to provide a mechanism for interoperability between different workloads we require the ability to convert from one token type or encoding to another for use across disparate systems.  
+Within the realm of workload identities, there are numerous types of security tokens that are commonly used including SPIFFE SVIDs, OAuth 2.0 Bearer Access Tokens {{RFC6750}}, and x.509 certificates. Additionally, security tokens are encoded in multiple formats such as JSON, CBOR, and protobufs.  In order to provide a mechanism for interoperability between different workloads we require the ability to convert from one token type or encoding to another for use across disparate systems.
 
 In addition to translating security tokens between different types and formats, workload identity systems must be able to support changing the cryptographic properties of tokens, embedding tokens in one another, change the embedded context in a token, change the validity constraints, change or add subjects to the token, or add sender constraints.  This set of use cases for token exchange and translation are further described in https://github.com/yaroslavros/wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-tokentranslation-requirements.md. (todo: replace with a link to the ID once published.)
 
@@ -61,7 +61,7 @@ TODO - Define a new translation endpoint.
 
 ## Token Context Enrichment
 
-TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token. 
+TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token.
 
 ## Lossy Translation
 
@@ -69,7 +69,7 @@ TODO - define what we mean by lossy.  What's lost?  Does this mean that some tok
 TODO - provide a specific lossy scenario and use case.
 
 Translation may be lossless, such as when exchanging an input token for an output token of the same format, or lossy when exchanging an input token for an output token of a different format. An example of lossy translation is detailed in the example above.  In this case, the aud claim of the id token maps to the AWS IAM role used to create the AWS temporary credentials. 
-The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context. 
+The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context.
 
 Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation.
 
