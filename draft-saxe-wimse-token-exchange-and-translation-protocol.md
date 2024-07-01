@@ -34,13 +34,33 @@ author:
     email: george.fletcher@capitalone.com
 
 normative:
+  RFC2119: # Keywords
+  RFC6750: #OAuth
+  RFC8174: # Ambiguity in Keywords
+  RFC8693: # OAuth 2.0 Token Exchange
+
+  OIDC:
+    title: OpenID Connect Core 1.0 incorporating errata set 1
+    target: https://openid.net/specs/openid-connect-core-1_0.html
+    author:
+    - name: Nat Sakimura
+      org: NRI
+    - name: John Bradley
+      org: Ping Identity
+    - name: Mike Jones
+      org: Microsoft
+    - name: B. de Medeiros
+      org: Google
+    - name: Chuck Mortimore
+      org: Salesforce
+    date: 2014-11
 
 informative:
 
 
 --- abstract
 
-The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc>.
+The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in "Use Cases Doc".
 
 --- middle
 
@@ -66,7 +86,7 @@ TODO: Define terms used by this specification
 
 Token translation fills a gap that development teams must solve for themselves today without standardized mechanisms.  For example, a common SPIFFE use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  This is accomplished by creating an OpenID Provider (OP) in the Kubernetes cluster and configuring AWS IAM as a Relying Party (RP) to obtain an ID token from the SPIFFE service. Using the id token, AWS STS AssumeRoleWithWebIdentity generates temporary sigV4 credentials for AWS allowing the workload to assume an AWS role and any permissions assigned to that role.  Similar mechanisms have been designed to support multiple cloud providers in the absence of standardized protocols.
 
-Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in <USE CASES DOC>.  Not all token input/output pairs are expected to be profiled.
+Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in "USE CASES DOC".  Not all token input/output pairs are expected to be profiled.
 
 ## Token Context Enrichment
 
