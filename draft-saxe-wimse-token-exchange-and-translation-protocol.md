@@ -69,7 +69,7 @@ TODO - define what we mean by lossy.  What's lost?  Does this mean that some tok
 TODO - provide a specific lossy scenario and use case.
 
 Translation may be lossless, such as when exchanging an input token for an output token of the same format, or lossy when exchanging an input token for an output token of a different format. An example of lossy translation is detailed in the example above.  In this case, the aud claim of the id token maps to the AWS IAM role used to create the AWS temporary credentials. 
-The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context. 
+The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context.
 
 Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation.
 
