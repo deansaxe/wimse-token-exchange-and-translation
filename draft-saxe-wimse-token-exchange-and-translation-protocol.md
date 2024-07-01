@@ -1,24 +1,4 @@
 ---
-###
-# Internet-Draft Markdown Template
-#
-# Rename this file from draft-todo-yourname-protocol.md to get started.
-# Draft name format is "draft-<yourname>-<workgroup>-<name>.md".
-#
-# For initial setup, you only need to edit the first block of fields.
-# Only "title" needs to be changed; delete "abbrev" if your title is short.
-# Any other content can be edited, but be careful not to introduce errors.
-# Some fields will be set automatically during setup if they are unchanged.
-#
-# Don't include "-00" or "-latest" in the filename.
-# Labels in the form draft-<yourname>-<workgroup>-<name>-latest are used by
-# the tools to refer to the current version; see "docname" for example.
-#
-# This template uses kramdown-rfc: https://github.com/cabo/kramdown-rfc
-# You can replace the entire file if you prefer a different format.
-# Change the file extension to match the format (.xml for XML, etc...)
-#
-###
 title: WIMSE Token Exchange and Translation Protocol
 abbrev: WIMSE Token Exchange & Translation
 category: info
@@ -60,18 +40,17 @@ informative:
 
 --- abstract
 
-The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, id_tokens, and SAML assertions for new OAuth access or refresh tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by RFC8693.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in RFC8693, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc TODO>.
+The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc>.
 
 --- middle
 
 # Introduction
 
-TODO: What is a security token?  What is a STS? (see https://datatracker.ietf.org/doc/html/rfc8693, the intro has great definitions)
+This specification defines a protocol for converting from one security token to another with support for both lossless and lossy conversions.  We refer to the lossless exchange as "token exchange" following the model defined in OAuth 2.0 Token Exchange {{RFC8693}}.  In this document we profile {{RFC8693}} to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token where no data is lost during the exchange.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  The terms Security Token, Security Token Service (STS), delegation, and impersonation are used in this document following the definitions in {{RFC8693}}.
 
-TODO: Define the need for token exchange & translation - refer to the use cases.
+Within the realm of workload identities, there are numerous types of security tokens that are commonly used including SPIFFE SVIDs, OAuth 2.0 Bearer Access Tokens {{RFC6750}}, and x.509 certificates. Additionally, security tokens are encoded in multiple formats such as JSON, CBOR, and protobufs.  In order to provide a mechanism for interoperability between different workloads we require the ability to convert from one token type or encoding to another for use across disparate systems.
 
-This specification defines a protocol for converting from one security token to another with support for high fidelity and lossy conversions.  We refer to the high fidelity exchange as "token exchange" as has been embodied in OAuth 2.0 Token Exchange (RFC8693).  We profile RFC8693 to enable OAuth token exchange for workloads where the output is an OAuth Access Token or Refresh Token.  "Token translation" describes all other conversions, including those where data loss may occur during conversion.  This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type, and the protocol herein is sufficient to meet the use cases defined in <USE CASES DOC>.
-
+In addition to translating security tokens between different types and formats, workload identity systems must be able to support changing the cryptographic properties of tokens, embedding tokens in one another, change the embedded context in a token, change the validity constraints, change or add subjects to the token, or add sender constraints.  This set of use cases for token exchange and translation are further described in https://github.com/yaroslavros/wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-tokentranslation-requirements.md. (todo: replace with a link to the ID once published.)
 
 # Notational Conventions
 
@@ -85,13 +64,9 @@ TODO: Define terms used by this specification
 
 # Overview
 
-TODO: high level description of the token translation flow
+Token translation fills a gap that development teams must solve for themselves today without standardized mechanisms.  For example, a common SPIFFE use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  This is accomplished by creating an OpenID Provider (OP) in the Kubernetes cluster and configuring AWS IAM as a Relying Party (RP) to obtain an ID token from the SPIFFE service. Using the id token, AWS STS AssumeRoleWithWebIdentity generates temporary sigV4 credentials for AWS allowing the workload to assume an AWS role and any permissions assigned to that role.  Similar mechanisms have been designed to support multiple cloud providers in the absence of standardized protocols.
 
-TODO - define exchange vs. translation in terms of RFC8693 and WS-Trust. Translation may be perfect or introduce lost context
-
-Token translation fills a gap that workloads must reinvent today.  For example, a common SPIFFE workload use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  <describe in broad terms https://spiffe.io/docs/latest/keyless/oidc-federation-aws/ or or similar for Google, etc.>
-
-Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles.  Profiles are not required when the input and output token are the same type.  Not all token input/output pairs are expected to be profiled.  During translation, the token translation service (TTS) may add, replace, or remove contextual data including attestations, validity constraints, and subjects. Cryptographic operations on the tokens may be replaced or supplemented, such as by adding PQC algorithms to a token encrypted and signed with classical algorithms.  For each use case defined in <USE CASES DOC>, this document defines the protocol requirements.
+Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in <USE CASES DOC>.  Not all token input/output pairs are expected to be profiled.
 
 ## Token Context Enrichment
 
@@ -102,9 +77,10 @@ TODO - what context do we enrich tokens with during translation? Embedding token
 TODO - define what we mean by lossy.  What's lost?  Does this mean that some token translations lose valuable information?
 TODO - provide a specific lossy scenario and use case.
 
-Translation may be lossy or lossless, such as when exchanging an input token for an output token of the same format.
+Translation may be lossless, such as when exchanging an input token for an output token of the same format, or lossy when exchanging an input token for an output token of a different format. An example of lossy translation is detailed in the example above.  In this case, the aud claim of the id token maps to the AWS IAM role used to create the AWS temporary credentials.
+The aud (if no azp claim is present), sub, and amr claims are mapped to STS Session Keys with the same name. Other claims in the id token are dropped, resulting in an loss of context.
 
-For example, assume the token translation endpoint receives a input SAML token with signed claims over the user's full name, user ID, email address, and a list of groups.  The output token format, T, only carries the user ID and list of groups (in addition to signatures and other metadata).  The token translation endpoint will follow the SAML -> T profile, mapping the context from input to output tokens, and dropping the user's full name and email address in the output token.  While data loss has occurred, the data lost was meaningless to the downstream systems consuming the token, T.  Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation chains.
+Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation.
 
 
 # Token Translation Endpoint
