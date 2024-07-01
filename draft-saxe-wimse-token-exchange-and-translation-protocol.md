@@ -32,6 +32,9 @@ author:
     organization: Capital One
     email: george.fletcher@capitalone.com
 
+ -  fullname: Andrii Deinega
+    email: andrii.deinega@gmail.com
+
 normative:
 
 informative:
