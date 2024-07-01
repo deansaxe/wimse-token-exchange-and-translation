@@ -33,6 +33,9 @@ author:
     organization: Capital One
     email: george.fletcher@capitalone.com
 
+ -  fullname: Andrii Deinega
+    email: andrii.deinega@gmail.com
+
 normative:
   RFC2119: # Keywords
   RFC6750: #OAuth
