@@ -61,7 +61,7 @@ TODO - Define a new translation endpoint.
 
 ## Token Context Enrichment
 
-TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token. 
+TODO - what context do we enrich tokens with during translation? Embedding tokens, attestations, assertions, validity, change/add subject, sender constraints.  This doc can give specific guidance on adding context to a scoped set of token types that are common. Maybe a reference to the use cases is sufficient, along with a short description of any fields that the translation endpoint MUST add to a newly issued token.
 
 ## Lossy Translation
 
