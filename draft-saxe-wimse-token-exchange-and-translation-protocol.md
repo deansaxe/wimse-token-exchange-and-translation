@@ -4,6 +4,7 @@ abbrev: WIMSE Token Exchange & Translation
 category: info
 
 docname: draft-saxe-wimse-token-exchange-and-translation-protocol-latest
+
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number: 1
 date:
@@ -33,13 +34,33 @@ author:
     email: george.fletcher@capitalone.com
 
 normative:
+  RFC2119: # Keywords
+  RFC6750: #OAuth
+  RFC8174: # Ambiguity in Keywords
+  RFC8693: # OAuth 2.0 Token Exchange
+
+  OIDC:
+    title: OpenID Connect Core 1.0 incorporating errata set 2
+    target: https://openid.net/specs/openid-connect-core-1_0.html
+    author:
+    - name: Nat Sakimura
+      org: NRI
+    - name: John Bradley
+      org: Ping Identity
+    - name: Mike Jones
+      org: Microsoft
+    - name: B. de Medeiros
+      org: Google
+    - name: Chuck Mortimore
+      org: Salesforce
+    date: 2014-11
 
 informative:
 
 
 --- abstract
 
-The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc>.
+The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in "Use Cases Doc".
 
 --- middle
 
@@ -51,13 +72,21 @@ Within the realm of workload identities, there are numerous types of security to
 
 In addition to translating security tokens between different types and formats, workload identity systems must be able to support changing the cryptographic properties of tokens, embedding tokens in one another, change the embedded context in a token, change the validity constraints, change or add subjects to the token, or add sender constraints.  This set of use cases for token exchange and translation are further described in https://github.com/yaroslavros/wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-tokentranslation-requirements.md. (todo: replace with a link to the ID once published.)
 
+# Notational Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 {{RFC2119}} {{RFC8174}} when, and only when, they appear in all capitals, as shown here.
+
+
+# Terminology
+
+TODO: Define terms used by this specification
+
+
+# Overview
+
 Token translation fills a gap that development teams must solve for themselves today without standardized mechanisms.  For example, a common SPIFFE use case is to have a Kubernetes workload assume an AWS IAM role to access an S3 bucket.  This is accomplished by creating an OpenID Provider (OP) in the Kubernetes cluster and configuring AWS IAM as a Relying Party (RP) to obtain an ID token from the SPIFFE service. Using the id token, AWS STS AssumeRoleWithWebIdentity generates temporary sigV4 credentials for AWS allowing the workload to assume an AWS role and any permissions assigned to that role.  Similar mechanisms have been designed to support multiple cloud providers in the absence of standardized protocols.
 
-Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in <USE CASES DOC>.  Not all token input/output pairs are expected to be profiled.
-
-## Token Translation Endpoint
-
-TODO - Define a new translation endpoint.
+Token translation accounts for different token types, formats, encodings, and encyryption allowing for translation between most, but not all, token types using token translation profiles. This protocol does not define the specifics of token translation between arbitrary token types.  Profiles must be defined to describe token translations between different token types, including any loss of context during translation.  Where the input and output token are of the same type and the conversion is lossless, the protocol defined within this document is sufficient to meet the use cases defined in "USE CASES DOC".  Not all token input/output pairs are expected to be profiled.
 
 ## Token Context Enrichment
 
@@ -74,8 +103,11 @@ The aud (if no azp claim is present), sub, and amr claims are mapped to STS Sess
 Lossy translation may impact downstream systems.  Implementers must be aware of the risks of lost context through token translation.
 
 
+# Token Translation Endpoint
 
-## Token Translation Profiles
+TODO - Define a new translation endpoint.
+
+# Token Translation Profiles
 
 TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.
 
