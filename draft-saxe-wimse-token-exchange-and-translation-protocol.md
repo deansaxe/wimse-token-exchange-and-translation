@@ -21,8 +21,8 @@ venue:
   type: "Working Group"
   mail: "wimse@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
-  github: "dhs-aws/wimse-token-exch-design-team"
-  latest: "https://dhs-aws.github.io/wimse-token-exch-design-team/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
+  github: "ddeansaxe/wimse-token-exch-design-team"
+  latest: "https://deansaxe.github.io/wimse-token-exch-design-team/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
 
 author:
  -  fullname: Dean H. Saxe
