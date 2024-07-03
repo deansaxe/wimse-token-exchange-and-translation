@@ -37,10 +37,13 @@ author:
     email: andrii.deinega@gmail.com
 
 normative:
+
   RFC2119: # Keywords
-  RFC6750: #OAuth
+  RFC6750: # OAuth
   RFC8174: # Ambiguity in Keywords
+  RFC8392: # CBOR Web Token (CWT)
   RFC8693: # OAuth 2.0 Token Exchange
+  RFC9068: # JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens
 
   OIDC:
     title: OpenID Connect Core 1.0 incorporating errata set 2
@@ -58,12 +61,15 @@ normative:
       org: Salesforce
     date: 2014-11
 
+
 informative:
 
 
 --- abstract
 
-The specification defines the processes of token exchange and token translation for workloads.  Token exchange is well defined for OAuth 2.0 in RFC8693, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token ({{OIDC}}), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT, CBOR, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in "Use Cases Doc".
+
+The specification defines the processes of token exchange and token translation for workloads.  Token exchange is introduced in {{RFC8693}}, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token (OIDC), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by {{RFC8693}}.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A, macaroons, <...>.  Further, these tokens may be encoded in formats including JWT OAuth 2.0 Acesss Tokens {{RFC9068}}, CWT {{RFC8392}}, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in {{RFC8693}}, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in <Use Cases Doc>.
+
 
 --- middle
 
