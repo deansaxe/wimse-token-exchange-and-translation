@@ -133,7 +133,7 @@ As countermeasures against replay attacks and various forms of misuse, an author
 - a value in the subject_token_type parameter MUST correspond to an actual type of a security token provided in the subject_token parameter ({{RFC8693}}).
 These countermeasures become even more significant when an entity issuing security tokens and an AS performing exchange of them reside in different security domains.
 
-An extra care should be taken for tokens that can be passed around using the front channel, and those tokens that do not explicitly define their type. Examples here would be OpenID Connect ID Token, and various assertions represented as JWTs.
+An extra care should be taken for tokens that can be passed around using the front channel, and for those tokens that do not explicitly define their type. Examples here would be OpenID Connect ID Token, and various assertions represented as JWTs.
 
 TODO Security - data loss in token translation may impact authZ decisions.  Be careful when allowing multiple token translations since losses may grow over each step of translation.
 
