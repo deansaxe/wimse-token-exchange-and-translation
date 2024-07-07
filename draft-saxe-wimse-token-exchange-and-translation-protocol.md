@@ -126,6 +126,13 @@ TODO - this draft does not define normative specs for translating from arbitrary
 
 # Security Considerations
 
+An AS performing token exchange SHOULD ensure it is the intended audience of a token being exchanged, and a client (whether it is an OAuth client or a workload) performing an exchange is allowed to perform such operation.
+A value in the subject_token_type parameter MUST correspond to an actual token type provided in the subject_token parameter.
+These are simple countermeasures against replay attacks and various forms of misuse, especially in cases when an AS who issued a token and an AS performing exchanges reside in different security domains.
+Typically, self-contained tokens include the aud claim (an array of strings) representing their audience.
+An extra care SHOULD be taken for tokens that can be passed through the front channel, and tokens that do not explicitly define their type.
+Examples here would be OpenID Connect ID Token, and various assertions represented as JWTs.
+
 TODO Security - data loss in token translation may impact authZ decisions.  Be careful when allowing multiple token translations since losses may grow over each step of translation.
 
 Embedding input tokens into output tokens can reduce this risk by allowing more complete context, at the risk of expanding the token size beyond what is practical.
