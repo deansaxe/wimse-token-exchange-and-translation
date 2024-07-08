@@ -26,8 +26,7 @@ venue:
 
 author:
  -  fullname: Dean H. Saxe
-    organization: Amazon Web Services
-    email: deansaxe@amazon.com
+    email: dean@thesax.es
 
  -  fullname: George Fletcher
     organization: Capital One
