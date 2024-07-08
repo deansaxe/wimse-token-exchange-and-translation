@@ -3,7 +3,7 @@ title: WIMSE Token Exchange and Translation Protocol
 abbrev: WIMSE Token Exchange & Translation
 category: info
 
-docname: draft-saxe-wimse-token-exchange-and-translation-protocol-latest
+docname: draft-saxe-wimse-token-exchange-and-translation-latest
 
 submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
 number: 1
@@ -22,7 +22,7 @@ venue:
   mail: "wimse@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
   github: "wimse-token-exchange-and-translation"
-  latest: "https://deansaxe.github.io/wimse-token-exchange-and-translation/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
+  latest: "https://deansaxe.github.io/wimse-token-exchange-and-translation/draft-saxe-wimse-token-exchange-and-translation.html"
 
 author:
  -  fullname: Dean H. Saxe
