@@ -21,7 +21,7 @@ venue:
   type: "Working Group"
   mail: "wimse@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/wimse/"
-  github: "deansaxe/wimse-token-exch-design-team"
+  github: "wimse-token-exchange-and-translation"
   latest: "https://deansaxe.github.io/wimse-token-exchange-and-translation/draft-saxe-wimse-token-exchange-and-translation-protocol.html"
 
 author:
