@@ -26,7 +26,6 @@ venue:
 
 author:
  -  fullname: Dean H. Saxe
-    organization: -
     email: dean@thesax.es
 
  -  fullname: George Fletcher
