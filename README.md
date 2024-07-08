@@ -2,16 +2,16 @@
 
 This is the working area for the individual Internet-Draft, "WIMSE Token Exchange and Translation Protocol".
 
-* [Editor's Copy](https://dhs-aws.github.io/wimse-token-exch-design-team/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.html)
+* [Editor's Copy](https://deansaxe.github.io/wimse-token-exchange-and-translation/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.html)
 * [Datatracker Page](https://datatracker.ietf.org/doc/draft-saxe-wimse-token-exchange-and-translation-protocol)
 * [Individual Draft](https://datatracker.ietf.org/doc/html/draft-saxe-wimse-token-exchange-and-translation-protocol)
-* [Compare Editor's Copy to Individual Draft](https://dhs-aws.github.io/wimse-token-exch-design-team/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.diff)
+* [Compare Editor's Copy to Individual Draft](https://deansaxe.github.io/wimse-token-exchange-and-translation/#go.draft-saxe-wimse-token-exchange-and-translation-protocol.diff)
 
 
 ## Contributing
 
 See the
-[guidelines for contributions](https://github.com/dhs-aws/wimse-token-exch-design-team/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/main/CONTRIBUTING.md).
 
 Contributions can be made by creating pull requests.
 The GitHub interface supports creating pull requests using the Edit (✏) button.

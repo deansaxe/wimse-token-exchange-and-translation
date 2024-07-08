@@ -1,4 +1,4 @@
 # License
 
 See the
-[guidelines for contributions](https://github.com/dhs-aws/wimse-token-exch-design-team/blob/main/CONTRIBUTING.md).
+[guidelines for contributions](https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/main/CONTRIBUTING.md).
