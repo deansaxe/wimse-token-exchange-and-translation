@@ -1,0 +1,970 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-23T01:08:16.232025+00:00",
+  "repo": "deansaxe/wimse-token-exchange-and-translation",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOLqam7s6FMo34",
+      "title": "Develop Use Cases",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/2",
+      "state": "CLOSED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Develop the use cases language for token exchange.  ",
+      "createdAt": "2024-04-10T03:23:01Z",
+      "updatedAt": "2024-06-18T20:44:21Z",
+      "closedAt": "2024-06-18T20:44:20Z",
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "@adeinega in slack shared the following:\r\n\r\nI don't how this would be useful for anyone from you... but these use cases just from the top of my head... after some research\r\n\r\nworkloadA doesn't have any \"incoming\" token but has its own service account token and wants to obtain an access token in order to talk to workloadB\r\n\r\nworkloadA has both an \"incoming\" Bearer token and its own service account token and wants to obtain an access token in order to talk to workloadB\r\n\r\nworkloadA has both an \"incoming\" DPoP token and its own service account token and wants to obtain an access token in order to talk to workloadB",
+          "createdAt": "2024-04-10T03:27:20Z",
+          "updatedAt": "2024-04-10T03:27:20Z"
+        },
+        {
+          "author": "gffletch",
+          "authorAssociation": "COLLABORATOR",
+          "body": "We may want to consider more than just hop-to-hop protections and think about a transaction as a unit regardless of how many workloads are involved. This doesn't negate the need for hop-to-hop protections or use cases.\n\nThe use cases listed apply to transactions as well as individual messages.",
+          "createdAt": "2024-04-15T17:58:36Z",
+          "updatedAt": "2024-04-15T17:58:36Z"
+        },
+        {
+          "author": "gffletch",
+          "authorAssociation": "COLLABORATOR",
+          "body": "For the 3rd use case, we should probably consider it to cover any sender constrained token regardless of method (DPoP, HTTP Signatures, mTLS bound tokens, etc).",
+          "createdAt": "2024-04-15T17:59:46Z",
+          "updatedAt": "2024-04-15T17:59:46Z"
+        },
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing, as this work is now happening at https://github.com/yaroslavros/wimse-tokentranslation-requirements.",
+          "createdAt": "2024-06-18T20:44:21Z",
+          "updatedAt": "2024-06-18T20:44:21Z"
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOLqam7s6FMpEN",
+      "title": "Develop security considerations",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/3",
+      "state": "OPEN",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Develop a set of security considerations that guide the development of the protocol(s).  ",
+      "createdAt": "2024-04-10T03:24:09Z",
+      "updatedAt": "2024-04-15T18:02:18Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "gffletch",
+          "authorAssociation": "COLLABORATOR",
+          "body": "The security required is often a function of risk. We may need multiple options to cover different levels of risk.\n\nAs an example, transaction tokens are intentionally bearer tokens to address mix of performance and improved security. I would not recommend them for solutions where sender constrained tokens are required for every hop (at least not with the technology that we have today).",
+          "createdAt": "2024-04-15T18:02:16Z",
+          "updatedAt": "2024-04-15T18:02:16Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOLqam7s6GquZT",
+      "title": "Glossary of our terminology",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/4",
+      "state": "CLOSED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Define terminology:\r\n\r\n- workload\r\n- workload identity\r\n- token translation\r\n- etc",
+      "createdAt": "2024-04-23T16:58:46Z",
+      "updatedAt": "2024-06-18T20:42:58Z",
+      "closedAt": "2024-06-18T20:42:57Z",
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Closing this issue since it was created for the design team's early discussion of this work and may no longer be relevant.",
+          "createdAt": "2024-06-18T20:42:57Z",
+          "updatedAt": "2024-06-18T20:42:57Z"
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "id": "I_kwDOLqam7s6M_B43",
+      "title": "Kerberos service tickets and token exchange",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/12",
+      "state": "CLOSED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "We might really want to include a token exchange (or transition) use case where Kerberos service tickets (ST) get involved. As as example, a workload provides a Kerberos ST to an AS using typical approach \"Authorization: Negotiate ****\" for that. Then, an AS issues an OAuth Bearer (or any other token) if this AS \r\n1. successfully validates provided Kerberos ST, and\r\n2. allows this sort of operation for a caller\r\n\r\nThere are lots of Orgs completely or partially in a Windows shop, and they want their apps to talk to apps that use OAuth and so forth with a minimal set of changes (leveraging and leaving unchanged what MS Windows AD provides to their legacy apps).\r\n\r\nThere is a need for this use case in the way I see it, despite the fact that Kerberos is a 30 years old protocol.",
+      "createdAt": "2024-06-20T21:50:39Z",
+      "updatedAt": "2024-07-07T08:24:47Z",
+      "closedAt": "2024-07-07T08:22:50Z",
+      "comments": [
+        {
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Was added in https://github.com/deansaxe/wimse-token-exch-design-team/pull/18/commits/53aaa3f2beb118018081c464888d02ea2318303d as a part of #14.",
+          "createdAt": "2024-07-07T08:22:50Z",
+          "updatedAt": "2024-07-07T08:24:47Z"
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "id": "I_kwDOLqam7s6OIOoe",
+      "title": "a few items for the security considerations section",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/15",
+      "state": "CLOSED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I believe the specification should require (or at least, strongly recommend) an AS to be included in the aud claim when it exchanges one token into another, that applies for\r\n1. OpenID Connect [ID Token](https://openid.net/specs/openid-connect-core-1_0.html#IDToken), and\r\n2. JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens ([RFC 9068](https://www.rfc-editor.org/rfc/rfc9068.html))\r\n2. CWTs, https://www.rfc-editor.org/rfc/rfc8392.html#section-3.1.3\r\n\r\nthis is a countermeasure against both misuse, and replay attacks, especially in cases, when an AS in one security domain exchanges one of these tokens from another (security) domain. I tend to think that OpenID Connect ID Token isn't a very good candidate to be exchanged for something else, it's impossible to deny this use cases is an extremely popular one in the wild... However, it's a mechanism to pass claims about the authentication of user to an RP and they don't necessary include all information about a user (the subject could be opaque, etc.) to issue an AT for it. Furthermore, ID Token could be easily encrypted by an OP and decrypted only by an RP using its public keys. Interestingly enough, the OpenID Connect spec, allows ID Tokens to be unsigned in certain cases. Lastly, the OpenID Core specification doesn't define a dedicated value for the typ claim for its ID Tokens, that makes it hard to distinguish them from other JWTs. \r\n\r\nPlease also remember that OpenID Connect ID Token, as well as other above mentioned ATs can be passed around using the front channel.\r\n\r\nThe spec should be specific about allowed exchange types for SAML assertions (only assertions from SAML IDPs need to be allowed).",
+      "createdAt": "2024-07-01T18:50:55Z",
+      "updatedAt": "2024-07-08T16:52:15Z",
+      "closedAt": "2024-07-08T16:52:15Z",
+      "comments": [
+        {
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "body": "There are various types of [JWTs](https://datatracker.ietf.org/doc/html/rfc7519), with all kinds of different purposes (SETs, OpenID Connect logout tokens, OpenID Connect Federations Trustmarks), not all of them are good candidates to be exchanges so I highly recommend to use & be focused on JWT ATs and OpenID Connect ID Tokens.",
+          "createdAt": "2024-07-01T18:57:19Z",
+          "updatedAt": "2024-07-01T18:57:55Z"
+        },
+        {
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Suggested changes are in https://github.com/deansaxe/wimse-token-exch-design-team/pull/19.",
+          "createdAt": "2024-07-07T08:18:50Z",
+          "updatedAt": "2024-07-07T08:18:50Z"
+        }
+      ]
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOLqam7s5sGSIs",
+      "title": "Rename draft-wimse-token-exchange-saxe-protocol.md to draft-saxes-wim\u2026",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/1",
+      "state": "MERGED",
+      "author": "jricher",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "\u2026se-token-exchange-protocol.md\r\n\r\nThis renames the document following IETF general practice.",
+      "createdAt": "2024-04-09T07:49:23Z",
+      "updatedAt": "2024-06-04T03:22:39Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "be81451a24fabded7ba42cd08f66955a485c26e3",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "rename-doc",
+      "headRefOid": "5d6c72c8f08bd23caee1b671756c54d1777663ae",
+      "closedAt": "2024-06-04T03:22:38Z",
+      "mergedAt": "2024-06-04T03:22:38Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "7b544a594e6b52e5d55410cae899aff43f7bdd02"
+      },
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "saxes?  There's more than one of me? ;)",
+          "createdAt": "2024-04-10T03:21:52Z",
+          "updatedAt": "2024-04-10T03:21:52Z"
+        },
+        {
+          "author": "jricher",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Looks like the internal variable needs to be changed at the same time anyway -- but the format is:\r\n\r\n`draft-<author>-<group>-<topic>`\r\n\r\nThis would be changed to `draft-<ietf>-<group>-<topic>` once adopted.",
+          "createdAt": "2024-04-10T08:57:31Z",
+          "updatedAt": "2024-04-10T08:57:31Z"
+        },
+        {
+          "author": "jricher",
+          "authorAssociation": "COLLABORATOR",
+          "body": "https://authors.ietf.org/naming-your-internet-draft",
+          "createdAt": "2024-04-10T08:58:01Z",
+          "updatedAt": "2024-04-10T08:58:01Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDOLqam7s5xXtZ2",
+      "title": "Updating the doc configuration",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/5",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Configuring the doc variables",
+      "createdAt": "2024-06-04T03:29:13Z",
+      "updatedAt": "2024-06-04T03:41:43Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "rename-doc",
+      "baseRefOid": "5d6c72c8f08bd23caee1b671756c54d1777663ae",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "doc-config",
+      "headRefOid": "8bad0b29100056a0329c9e1212c040a5cb58c8b3",
+      "closedAt": "2024-06-04T03:41:42Z",
+      "mergedAt": "2024-06-04T03:41:42Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "bc7e1e023f59031811ad4e702eb8fce3105c0ab1"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDOLqam7s5xXw9i",
+      "title": "Update draft-saxe-wimse-token-exchange-and-translation-protocol.md",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/6",
+      "state": "CLOSED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "I'm trying to figure out why renaming the files is breaking the build.",
+      "createdAt": "2024-06-04T03:46:33Z",
+      "updatedAt": "2024-06-04T03:49:51Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "7b544a594e6b52e5d55410cae899aff43f7bdd02",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "repo-configuration",
+      "headRefOid": "f4deb0bf1d8515b727daa64b802cecd7c414a50e",
+      "closedAt": "2024-06-04T03:49:51Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDOLqam7s5xXxqD",
+      "title": "Rename doc",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/7",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-06-04T03:50:33Z",
+      "updatedAt": "2024-06-04T03:51:01Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "7b544a594e6b52e5d55410cae899aff43f7bdd02",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "rename-doc",
+      "headRefOid": "bc7e1e023f59031811ad4e702eb8fce3105c0ab1",
+      "closedAt": "2024-06-04T03:50:45Z",
+      "mergedAt": "2024-06-04T03:50:45Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "a6e87ad0b11d50656115566263979ddcd4a9d3a8"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDOLqam7s5xetvc",
+      "title": "Initial text for the abstract",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/8",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-06-04T22:53:30Z",
+      "updatedAt": "2024-06-13T16:57:32Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "7e5ef482922292ff6edc2d6e51926e49e355ddc0",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "Abstract-and-Introduction-Development",
+      "headRefOid": "11907542d63f6af4ddd8098d1f743ad3c58752c2",
+      "closedAt": "2024-06-13T16:57:32Z",
+      "mergedAt": "2024-06-13T16:57:32Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "774cf1c0f918b66db75b57e58a473649b15adba9"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDOLqam7s5xgP_Q",
+      "title": "Validate build errors",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/9",
+      "state": "CLOSED",
+      "author": "idimaster",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Test reasons for errors",
+      "createdAt": "2024-06-05T05:48:48Z",
+      "updatedAt": "2024-06-30T18:02:43Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "7e5ef482922292ff6edc2d6e51926e49e355ddc0",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "build-check",
+      "headRefOid": "4ab2bb05a66eca10e30edbbc86c3a07e15ac53aa",
+      "closedAt": "2024-06-30T18:02:43Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 10,
+      "id": "PR_kwDOLqam7s5xhgDX",
+      "title": "Update setup",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/10",
+      "state": "MERGED",
+      "author": "jricher",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "- rename doc\n- ignore lib\n- update configuration\n- Remove old README.md\n- Automatic update of README.md\n- Automatic update of venue information\n- update ignore\n",
+      "createdAt": "2024-06-05T09:09:31Z",
+      "updatedAt": "2024-06-05T15:36:09Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "7e5ef482922292ff6edc2d6e51926e49e355ddc0",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "rename-doc-setup",
+      "headRefOid": "b735c057a0d1368f9dcae710dab875d84b05597d",
+      "closedAt": "2024-06-05T15:35:27Z",
+      "mergedAt": "2024-06-05T15:35:27Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "9de0489f254a91590787f08347b47ed70287fcda"
+      },
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "Thanks, Justin!",
+          "createdAt": "2024-06-05T15:35:34Z",
+          "updatedAt": "2024-06-05T15:35:34Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s59JO1J",
+          "commit": {
+            "abbreviatedOid": "b735c05"
+          },
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "lgtm",
+          "createdAt": "2024-06-05T15:36:09Z",
+          "updatedAt": "2024-06-05T15:36:09Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "id": "PR_kwDOLqam7s5y5kNA",
+      "title": "Fleshing out the introduction",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/11",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Added additional content to the intro, addressed definitions of security token, sts, delegation, and impersonation from RFC8693.",
+      "createdAt": "2024-06-19T03:28:30Z",
+      "updatedAt": "2024-06-28T21:48:13Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "c50573a0cbc999611c307037837b4a48a84f90c4",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "introduction-updates",
+      "headRefOid": "8d2255a98322a8877831b8cd54a9bbdb7c58e22f",
+      "closedAt": "2024-06-28T21:48:12Z",
+      "mergedAt": "2024-06-28T21:48:12Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "59a1d4b421f792b9ff2e15156c74cc9a6878cc65"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 13,
+      "id": "PR_kwDOLqam7s5zpvr8",
+      "title": "Update draft-saxe-wimse-token-exchange-and-translation-protocol.md",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/13",
+      "state": "MERGED",
+      "author": "gffletch",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Updated structure of the document",
+      "createdAt": "2024-06-26T15:29:30Z",
+      "updatedAt": "2024-07-02T05:55:16Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "59a1d4b421f792b9ff2e15156c74cc9a6878cc65",
+      "headRepository": "gffletch/wimse-token-exch-design-team",
+      "headRefName": "main",
+      "headRefOid": "23feb65766e2cf0d6fe1cd304978c8a86f3d9372",
+      "closedAt": "2024-07-02T05:55:16Z",
+      "mergedAt": "2024-07-02T05:55:16Z",
+      "mergedBy": "idimaster",
+      "mergeCommit": {
+        "oid": "aeb0b7fdd95a3e7b662dc2c9a76a4ed0c44fc8f8"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6ARN84",
+          "commit": {
+            "abbreviatedOid": "fde26a7"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T18:08:07Z",
+          "updatedAt": "2024-07-01T18:08:08Z",
+          "comments": [
+            {
+              "originalPosition": 18,
+              "body": "```suggestion\r\n    title: OpenID Connect Core 1.0 incorporating errata set 2\r\n```",
+              "createdAt": "2024-07-01T18:08:07Z",
+              "updatedAt": "2024-07-01T18:08:08Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6AUFfh",
+          "commit": {
+            "abbreviatedOid": "23feb65"
+          },
+          "author": "idimaster",
+          "authorAssociation": "COLLABORATOR",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2024-07-02T05:49:16Z",
+          "updatedAt": "2024-07-02T05:49:16Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "id": "PR_kwDOLqam7s5z8CQ5",
+      "title": "Update draft-saxe-wimse-token-exchange-and-translation-protocol.md",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/14",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Fixing normative references",
+      "createdAt": "2024-06-28T22:48:21Z",
+      "updatedAt": "2024-07-04T03:46:37Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "4eda7402f04ab618869bc2d839edb6d020152afe",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "dhs-aws-normative-references",
+      "headRefOid": "53aaa3f2beb118018081c464888d02ea2318303d",
+      "closedAt": "2024-07-03T19:40:18Z",
+      "mergedAt": "2024-07-03T19:40:18Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "4523019f02c18189d6a7e25e563ef1ab17a6e76c"
+      },
+      "comments": [
+        {
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "body": "> I fixed this issue in my PR. We can delete this one :)\r\n\r\nI manually merged branches to resolve the conflict.",
+          "createdAt": "2024-07-03T19:13:42Z",
+          "updatedAt": "2024-07-03T19:13:42Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6APb7r",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "gffletch",
+          "authorAssociation": "COLLABORATOR",
+          "state": "CHANGES_REQUESTED",
+          "body": "I fixed this issue in my PR. We can delete this one :)",
+          "createdAt": "2024-07-01T14:20:59Z",
+          "updatedAt": "2024-07-01T14:20:59Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDOLqam7s6ARIX1",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T17:52:28Z",
+          "updatedAt": "2024-07-01T17:52:29Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "I suggest replacing `Token exchange is well defined for OAuth 2.0 in {{RFC8693}}` by \"Token exchange is introduced in {{RFC8693}}\".\r\n\r\nIMO, RFC8693 is a bit abstract, it's barely possible to use it before you get into details of an AS's implementation you deal with. Yet another example... is that RFC8693 refers to all SAML assertions, but hey who would ever want to exchange a SAML AuthnRequest from an SP? :)",
+              "createdAt": "2024-07-01T17:52:28Z",
+              "updatedAt": "2024-07-04T03:47:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6ARI9O",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T17:54:09Z",
+          "updatedAt": "2024-07-01T17:54:09Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "Kindly ask to mention Kerberos service tickets, there seem to be an interest to use them.",
+              "createdAt": "2024-07-01T17:54:09Z",
+              "updatedAt": "2024-07-01T17:54:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6ARLVu",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T18:00:22Z",
+          "updatedAt": "2024-07-01T18:00:22Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "For CBOR, we got CWTs, [RFC 8392](https://datatracker.ietf.org/doc/html/rfc8392).\r\n\r\nI suggest mentioning them in `these token types include, but are not limited to ...` with a link to their RFC, and accordingly omitting this format in the second sentence.\r\n\r\nThe same applies to JWTs, I encourage our WG to be very precise that we would like to deal with JWT ATs, no with all JWTs out there due to the security concerns (I'll mention them separately).",
+              "createdAt": "2024-07-01T18:00:22Z",
+              "updatedAt": "2024-07-01T18:00:22Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6ARMMb",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T18:02:55Z",
+          "updatedAt": "2024-07-01T18:02:56Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "By JWT ATs, I mean [JSON Web Token (JWT) Profile for OAuth 2.0 Access Tokens (RFC 9068)](https://www.rfc-editor.org/rfc/rfc9068.html).",
+              "createdAt": "2024-07-01T18:02:56Z",
+              "updatedAt": "2024-07-01T18:02:56Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6ARNDf",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-01T18:05:26Z",
+          "updatedAt": "2024-07-01T18:05:26Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "https://openid.net/ doesn't use term \"OIDC\" as I recall.",
+              "createdAt": "2024-07-01T18:05:26Z",
+              "updatedAt": "2024-07-01T18:05:26Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6AlJs4",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "dhs-aws",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-03T19:36:50Z",
+          "updatedAt": "2024-07-03T19:36:50Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "I'm not sure what the request is for OIDC.  Leaving it for now, we can update as we continue writing.",
+              "createdAt": "2024-07-03T19:36:50Z",
+              "updatedAt": "2024-07-03T19:36:50Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDOLqam7s6AntMu",
+          "commit": {
+            "abbreviatedOid": "ba549fe"
+          },
+          "author": "adeinega",
+          "authorAssociation": "COLLABORATOR",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2024-07-04T03:46:37Z",
+          "updatedAt": "2024-07-04T03:46:37Z",
+          "comments": [
+            {
+              "originalPosition": 12,
+              "body": "@dhs-aws, my suggestion was to replace \"OIDC\" by \"OpenID Connect\", that's it. https://openid.net/ did use this abbreviation in a couple of places only, say in the names of some they specs such as OIDC4VP and OIDC4VCI but they don't do it any longer.\r\n",
+              "createdAt": "2024-07-04T03:46:37Z",
+              "updatedAt": "2024-07-04T03:46:37Z"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "id": "PR_kwDOLqam7s50G6xK",
+      "title": "Update draft-saxe-wimse-token-exchange-and-translation-protocol.md",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/16",
+      "state": "MERGED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-01T19:01:01Z",
+      "updatedAt": "2024-07-07T08:21:03Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "59a1d4b421f792b9ff2e15156c74cc9a6878cc65",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "adeinega-patch-1",
+      "headRefOid": "0a1d5b608522576f4e53aaac3da2473c4b36ce76",
+      "closedAt": "2024-07-03T19:08:15Z",
+      "mergedAt": "2024-07-03T19:08:15Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "4eda7402f04ab618869bc2d839edb6d020152afe"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 17,
+      "id": "PR_kwDOLqam7s50HO16",
+      "title": "A naive attempt to fix build issues",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/17",
+      "state": "CLOSED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-01T20:00:20Z",
+      "updatedAt": "2024-07-02T21:15:55Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "59a1d4b421f792b9ff2e15156c74cc9a6878cc65",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "adeinega-patch-2",
+      "headRefOid": "4e76e61a61c2d6e96cabf5e9a701d733b51907c8",
+      "closedAt": "2024-07-02T21:15:51Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 18,
+      "id": "PR_kwDOLqam7s50XZsa",
+      "title": "Fix linting errors",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/18",
+      "state": "MERGED",
+      "author": "dhs-aws",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Downloaded a local copy to fix linting issues using\r\n\r\n```\r\nmake \r\nmax lint-fix\r\n\r\n```\r\n",
+      "createdAt": "2024-07-03T19:54:52Z",
+      "updatedAt": "2024-07-03T20:04:53Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "fix-lint-errors",
+      "baseRefOid": "d32e46bc1609ce1f4f840b8a71597859d2a1d5b3",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "main",
+      "headRefOid": "57484f51935ca0065e91ce8859b258ead5a8feaf",
+      "closedAt": "2024-07-03T20:04:53Z",
+      "mergedAt": "2024-07-03T20:04:53Z",
+      "mergedBy": "dhs-aws",
+      "mergeCommit": {
+        "oid": "15b8193323349943f4d569e17fea7e0927ff79b7"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 19,
+      "id": "PR_kwDOLqam7s50m35L",
+      "title": "Issue 15, a few items for the security considerations section",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/19",
+      "state": "MERGED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-07-07T07:56:51Z",
+      "updatedAt": "2024-07-08T16:07:27Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "e51c73637480305ac1803151c2da764a04a16cac",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "issue15",
+      "headRefOid": "c753bdfcfdc66178e24114158773a161d677aaac",
+      "closedAt": "2024-07-08T16:06:56Z",
+      "mergedAt": "2024-07-08T16:06:56Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "9cd1e10993fd75c7a36d00ff2000311f64db9b11"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6A-L8A",
+          "commit": {
+            "abbreviatedOid": "c753bdf"
+          },
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2024-07-08T16:06:46Z",
+          "updatedAt": "2024-07-08T16:06:46Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 20,
+      "id": "PR_kwDOLqam7s50m40F",
+      "title": "This PR removes a mention of refresh tokens.",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/20",
+      "state": "MERGED",
+      "author": "adeinega",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "RFC8693 does allow to get a RT in some cases but does not take / exchange it.\r\n\r\n> A refresh token will typically not be issued when the exchange is of one temporary credential (the subject_token) for a different temporary credential (the issued token) for use in some other context. A refresh token can be issued in cases where the client of the token exchange needs the ability to access a resource even when the original credential is no longer valid (e.g., user-not-present or offline scenarios where there is no longer any user entertaining an active session with the client). Profiles or deployments of this specification should clearly document the conditions under which a client should expect a refresh token in response to urn:ietf:params:oauth:grant-type:token-exchange grant type requests.",
+      "createdAt": "2024-07-07T08:09:38Z",
+      "updatedAt": "2024-07-08T16:06:52Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "e51c73637480305ac1803151c2da764a04a16cac",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "refresh_tokens",
+      "headRefOid": "609052b0c0b896fe48ed2f8c50d508c657b3bacd",
+      "closedAt": "2024-07-08T16:05:44Z",
+      "mergedAt": "2024-07-08T16:05:44Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "cef93841abd36dbeaf895ad291453827a7e0b7c4"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6A-LVI",
+          "commit": {
+            "abbreviatedOid": "609052b"
+          },
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "state": "APPROVED",
+          "body": "lgtm",
+          "createdAt": "2024-07-08T16:05:36Z",
+          "updatedAt": "2024-07-08T16:05:36Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 21,
+      "id": "PR_kwDOLqam7s50t25S",
+      "title": "Updated Dean's email address/organization",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/21",
+      "state": "MERGED",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Minor changes to my email address & employer",
+      "createdAt": "2024-07-08T16:08:29Z",
+      "updatedAt": "2024-07-08T16:13:46Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "9cd1e10993fd75c7a36d00ff2000311f64db9b11",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "deansaxe-new-name",
+      "headRefOid": "3c1219a48f8fed4ac8f2a8adefd298820d0426ea",
+      "closedAt": "2024-07-08T16:13:40Z",
+      "mergedAt": "2024-07-08T16:13:40Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "868cdc1941e8971978d0d216d5db525d67b2830f"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 22,
+      "id": "PR_kwDOLqam7s50t9Pi",
+      "title": "Fixing minor errors in the markdown",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/22",
+      "state": "MERGED",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Changed github repo path, removed extra \"d\" from content",
+      "createdAt": "2024-07-08T16:21:48Z",
+      "updatedAt": "2024-07-08T16:23:03Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "868cdc1941e8971978d0d216d5db525d67b2830f",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "deansaxe-fix-errors-in-md",
+      "headRefOid": "ed3f0e54d266a87300b8e7798137c7408e4f90df",
+      "closedAt": "2024-07-08T16:22:56Z",
+      "mergedAt": "2024-07-08T16:22:56Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "8e364c24a69ba248ebc2a032fc1ed3543473b007"
+      },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 23,
+      "id": "PR_kwDOLqam7s50uKUb",
+      "title": "Changed name to remove -protocol",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/23",
+      "state": "MERGED",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Datatracker wants names 50 characters or less, name was 56 char.",
+      "createdAt": "2024-07-08T16:57:42Z",
+      "updatedAt": "2024-07-08T16:57:56Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "de2945a0dd7310a92faf3601dc148e77c7db7795",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "deansaxe-name-update",
+      "headRefOid": "dc1e434a7c0a7534ba69363716adc505cf55ad65",
+      "closedAt": "2024-07-08T16:57:56Z",
+      "mergedAt": "2024-07-08T16:57:56Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "65703e083853f1edbdd488b9406fb009b85f95c4"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
+}
