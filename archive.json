@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-09-26T01:16:23.651914+00:00",
+  "timestamp": "2024-09-29T01:22:39.287199+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -197,6 +197,38 @@
           "updatedAt": "2024-07-07T08:18:50Z"
         }
       ]
+    },
+    {
+      "number": 24,
+      "id": "I_kwDOLqam7s6YMowh",
+      "title": "For lossy translations, what is the proper path forward?",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/24",
+      "state": "OPEN",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed on the call on September 24, 2024 ([Notes](https://hackmd.io/g6ViXD7TRZqRg1ojxwGzLw), we need to determine the mechanisms used to define lossy translations.  In the initial ID we preferred the mechanism of profiling for any lossy translations.  Profiling will require a mechanism to define the profile for each pair of tokens profiled in both directions (e.g. Token Type A to Token Type B, and the inverse B to A).\r\n\r\nThis leads to a number of outstanding questions:\r\n\r\n1. How are profiles documented?  Is this an RFC track document or are there other mechanisms for defining the profiles?\r\n2. If the documentation is an RFC track document, can we develop a template to assist authors in writing profiles to speed the development of profiles for token translation?\r\n3. Are we able to create buckets of translation types that can apply broadly across mutliple different token pairs in order to simplify the process of profiling?  In other words, are there generic profiles that can be established to work across multiple token types?\r\n4. How do we prioritize authoring profiles?  Are there common use cases that exist today that could be developed as exemplars?\r\n5. If the answer is not profiles, what other options do we have?",
+      "createdAt": "2024-09-27T17:54:14Z",
+      "updatedAt": "2024-09-27T17:54:53Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 25,
+      "id": "I_kwDOLqam7s6YMqkl",
+      "title": "Does OAuth token exchange sufficiently describe any exchange that results in an OAuth access token?",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/25",
+      "state": "OPEN",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Since we expect this to be a common pattern, is the token exchange resulting in an OAuth access token already sufficiently described and documented in [RFC 8693](https://datatracker.ietf.org/doc/html/rfc8693) so that we can defer to the existing RFC and not define any further protocols for these use cases?\r\n",
+      "createdAt": "2024-09-27T17:58:51Z",
+      "updatedAt": "2024-09-27T17:58:51Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
