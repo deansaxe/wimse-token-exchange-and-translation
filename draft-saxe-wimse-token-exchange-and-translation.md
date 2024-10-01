@@ -88,6 +88,17 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 TODO: Define terms used by this specification
 
+* authorization server (from RFC 6749)
+
+The server issuing access tokens to the client after successfully authenticating the resource owner and obtaining authorization.
+
+* workload (from draft-ietf-wimse-arch.md)
+
+A workload is a running instance of software executing for a specific purpose. Workload typically interacts with other parts of a larger system. A workload may exist for a very short durations of time (fraction of a second) and run for a specific purpose such as to provide a response to an API request. Other kinds of workloads may execute for a very long duration, such as months or years. Examples include database services and machine learning training jobs. 
+
+* token
+
+An integrity-protected string denoting a lifetime and specific attributes of a security context. In the context of WIMSE, the token denotes attributes of a *workload* security context.
 
 # Overview
 
@@ -117,6 +128,55 @@ TODO - Define a new translation endpoint.
 # Token Translation Profiles
 
 TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.
+
+## X.509 Certificate to Access Token Profile 
+
+In (draft-ietf-wimse-arch.md), Workloads may be issued Identity Credentials in the form of X.509 Certificates, for Workload-to-Workload communication over mututal TLS (mTLS). Workload Agents must request the X.509 Certificate Credentials by undergoing Attestation against both the local Host Operating System and Hardware, and a remote Server with access to a Certificate Authority (CA). If the Server confirms sufficient evidence has been presented for Attestation, the Workload is issued X.509 Certificates identifying it. The identity is conveyed in a URI Subject Aleternative Name (SAN) within the X.509 Certificate.
+
+Authorization servers issue OAuth 2.0 Access Tokens to client applications.  If the resource owner has granted sufficient privileges to a protected resource, the issued access token can be used to access protected resources on resource servers. 
+
+The Workloads possessing X.509 Certificate Identity Credentials may operate in an environment that is isolated from the security domain of a protected resource. In the case where the protected resource is protected by an external OAuth 2.0 Authorization Server, X.509 Certificate-to-Access Token exchange may be configured. The Trust across the isolated security domains must first be established. Relying parties must describe, via secure configurations, a mapping that crosses the security domains from the X.509 certificate authority(ies) to the OAuth 2.0 authorization server. The specification for authenticating the relying party and for the format of the configurations are out of scope of this specification. The following configurations MAY be registered by a relying party at the OAuth 2.0 authorization server:
+
+1. A set of one or more Trust Anchors MUST be configured for the relying party at the OAuth 2.0 authorization server, representing authoritative entities with a public key and associated data, as defined in RFC 6024. These configurations MUST be represented as X.509 CA certificates in either DER or PEM format.
+2. A set of intermediate entities with public key and associated data, expressed as X.509 CA certificates in either DER or PEM format, MAY be configured for the relying party at the OAuth 2.0 authorization server. The intermediate CA certificates are for the purposes of certificate chain path building in scenarios where clients cannot or may not provide these intermediate certificates during mTLS handshakes.
+3. A mapping MUST describe the certificate attribute(s) used to select and or construct the subject claim in the OAuth 2.0 access tokens. Possible X.509 certificate properties include the following:
+   - subject's common name (CN)
+   - first subject alternative names (SAN) DNS Name entry
+   - first subject alternative names (SAN) URI entry
+4. A set of conditions MAY be defined to constrain the client certificates that SHALL be accepted.  An example might be a constraint that the certificate's first SAN URI entry must start with `spiffe://example.com/foo`, or that the certificate's first SAN DNS Name entry must end with `.example.com`.
+5. A mapping MAY describe additional certificate attributes that may be encoded in the issued OAuth 2.0 access tokens to be interpreted as part of access policy decisions.  These MAY include any of the following properties
+   - hex-encoded serial number
+   - subject DN common name
+   - subject DN organization name
+   - subject DN subject organization unit
+   - issuer DN common name
+   - issuer DN organization name
+   - issuer DN organization unit
+   - the first subject alternative name (SAN) of type DNS name
+   - the first subject alternative name (SAN) of type URI
+
+Once the relying party has registered an X.509 Certificate federation profile with the OAuth 2.0 authorization server, to obtain access tokens, Workloads MUST present their X.509 Certificates during mTLS handshakes to establish a connection to the OAuth 2.0 Authorization Server, and send a request to token endpoint. The access token request is sent with the following properties:
+
+* grant_type: REQUIRED. The value `urn:ietf:params:oauth:grant-type:token-exchange` indicates that a token exchange is being performed.
+* resource: OPTIONAL. A URI that indicates the target service or resource where the client intends to use the requested security token.
+* audience: REQUIRED for this Profile. A URI or other unique identifier for the relying party, assigned by the OAuth 2.0 Authorization Server.
+* scope: OPTIONAL. A list of space-delimited, case-sensitive strings, as defined in Section 3.3 of [RFC6749], that allow the client to specify the desired scope of the requested security token in the context of the service or resource where the token will be used.
+* requested_token_type: `urn:ietf:params:oauth:token-type:access_token`
+* subject_token: TBD.  This is marked REQUIRED for token exchange, but in this case the security token is conveyed in mTLS handshake messages.
+* subject_token_type: `urn:ietf:params:oauth:token-type:x509`
+
+The request MAY ONLY be accepted if the X.509 Certificate used during mTLS chain to a previously-configured Trust Anchor via a certificate path that may include previously-configured intermediate CA certificates. The previously-configured subject claim selector must be provide a non-blank string from the certificate. The previously-configured conditions must accept the X.509 Certificate.
+
+The response document contains the following properties (see RFC 8693):
+
+* access_token: REQUIRED. The security token issued by the authorization server in response to the token exchange request.
+* issued_token_type: REQUIRED. Must be `urn:ietf:params:oauth:token-type:access_token` for this Profile.
+* token_type: REQUIRED. Must be `bearer` for this Profile.
+* expires_in: RECOMMENDED. The validity lifetime, in seconds, of the token issued by the authorization server.
+* scope: OPTIONAL if the scope of the issued security token is identical to the scope requested by the client; otherwise, it is REQUIRED.
+* refresh_token: MUST NOT be returned for this Profile.
+
+It is RECOMMENDED to embed a hash of the X.509 Certificate used during to establish the mTLS handshake to the authorization server in the returned access_token. When such an access_token is used, Resource Servers MUST verify that a matching certificate was used during the mTLS handshake. It is RECOMMENDED that the access_token be bound to the X.509 Certificate that was used to obtain it, in the manner described in [RFC 8705 Section 3](https://datatracker.ietf.org/doc/html/rfc8705#name-mutual-tls-client-certifica). Resource servers MUST enforce that an access_token bound to an X.509 Certificate MAY NOT be used to access any protected resources, unless the same X.509 Certificate was used during the mTLS handshake to the resource server. If the access_token is a JWT, the X.509 Certificate hash can be represented in the "x5t#S256" member of the "cnf" payload claim.
 
 # Conventions and Definitions
 
