@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-01T01:23:56.027362+00:00",
+  "timestamp": "2024-10-03T01:16:59.816453+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -226,9 +226,17 @@
       "labels": [],
       "body": "Since we expect this to be a common pattern, is the token exchange resulting in an OAuth access token already sufficiently described and documented in [RFC 8693](https://datatracker.ietf.org/doc/html/rfc8693) so that we can defer to the existing RFC and not define any further protocols for these use cases?\r\n",
       "createdAt": "2024-09-27T17:58:51Z",
-      "updatedAt": "2024-09-27T17:58:51Z",
+      "updatedAt": "2024-10-02T16:10:34Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "frumioj",
+          "authorAssociation": "NONE",
+          "body": "In order to help myself understand this issue, I wrote the following description of how I understand issuance, exchange and translation of tokens:\r\n\r\nToken Issuance\r\n----------------------\r\n\r\nThe granting of a token in response to an authentication event, whereby the granter of the token has itself (or via some kind of well-defined federation mechanism) authenticated the grantee, prior to issuing the token, usually via some primary identification mechanism (such as knowledge of a shared secret, or a signature verification challenge, related to the prior generation of an \"account\").\r\n\r\nToken Exchange\r\n------------------------\r\n\r\nThe issuance of a token in response to the presentation of another token, with an explicit request to exchange the presented token for another one. The issued token may or may not have the same semantics or syntax as the one presented in the request. The presented token may or may not lose its validity when the token for which it is exchanged is returned, regardless of any validity period specified in the original token. The presented token may either form part of the issued token (for example in explicit delegation) or be referenced from it.\r\n\r\nToken Translation\r\n--------------------------\r\n\r\nAs in the case of token exchange, one token is presented, and another may be returned. There is an explicit request for translation, and the requested token format may be specified in the request. In the case of translation, however, while the syntax of the returned token may be different than the input token, the semantics of the presented token should be maintained, except in circumstances where the output token format cannot adequately replicate the semantics of the input token.\r\n\r\nIn looking at RFC8693, token exchange deals with at least two explicit use-cases - delegation and impersonation scenarios. In delegation, I make a request to get a delegation token, presenting my own token with me as the subject, and receive a token that references me as the actor, and some other principal as the subject. That is not a \"translation\". In addition, I think a delegation token is something that may have a different validity period (for example) than the input token, so there is possibly no actual \"exchange\" - both the input token and the response token remain valid.\r\n\r\nImpersonation, however, where I might exchange a token with myself as subject for another that has another principal as subject, and has no further mention of me, I could see a sort of \"translation\" - give the same semantics as the presented token, but change the subject - a particularly tricky and dangerous translation perhaps, but I'd suggest that this is a translation, and so thus an RFC8693 token exchange grant type could abstractly be used to offer translation semantics too (since I think it already does so).  \r\n\r\nFinally, I note that RFC8693 says this about the semantics of token exchange:\r\n\r\n\"In the absence of one-time-use or other semantics specific to the token type, the act of performing a token exchange has no impact on the validity of the subject token or actor token. Furthermore, the exchange is a one-time event and does not create a tight linkage between the input and output tokens, so that (for example) while the expiration time of the output token may be influenced by that of the input token, renewal or extension of the input token is not expected to be reflected in the output token's properties. It may still be appropriate or desirable to propagate token-revocation events. However, doing so is not a general property of the STS protocol and would be specific to a particular implementation, token type, or deployment.\"\r\n\r\nSo in my opinion at least, RFC8693 may indeed suffice to provide an endpoint for token \"translation\" (because I see impersonation as a type of translation). ",
+          "createdAt": "2024-10-02T16:10:33Z",
+          "updatedAt": "2024-10-02T16:10:33Z"
+        }
+      ]
     }
   ],
   "pulls": [
