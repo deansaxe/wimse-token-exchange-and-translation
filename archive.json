@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-03T01:16:59.816453+00:00",
+  "timestamp": "2024-10-06T01:22:12.541343+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -237,6 +237,38 @@
           "updatedAt": "2024-10-02T16:10:33Z"
         }
       ]
+    },
+    {
+      "number": 26,
+      "id": "I_kwDOLqam7s6Y1BZD",
+      "title": "OAuth2 Opaque token [to and from] JWT profiled OAuth2 token",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/26",
+      "state": "OPEN",
+      "author": "identitymonk",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "As discussed during IETF 120, I had to deal with customers that used Opaque Token on the public leg of the communication (Client to API) while it might be better to possess a JWT profiled token for the transaction on the private leg (API to backend services).\r\n\r\nThe reverse translation might be interesting for privacy purposes if communications have to cross zone of trusts / realm, as the communication might be a public leg again, which would require a  JWT profiled token to be translated into an Opaque Token.",
+      "createdAt": "2024-10-03T13:13:16Z",
+      "updatedAt": "2024-10-03T13:13:16Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 27,
+      "id": "I_kwDOLqam7s6Y1DPt",
+      "title": "Guardrails and principles for 3rd party translation profiles",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/27",
+      "state": "OPEN",
+      "author": "identitymonk",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Through the lifetime of WIMSE, some 3rd party might decide to propose new translation profiles to the standard to assure interoperability with their own structure of AuthNZ proof.\r\n\r\nFor example, someone might decide to propose a profile for Shibboleth or SiteMinder (was mentioned during IETF120 surprisingly).\r\n\r\nThe standard needs to defines the principles, guardrails, and normalization rules that any 3rd party will have to respect while proposing a new profile.",
+      "createdAt": "2024-10-03T13:16:20Z",
+      "updatedAt": "2024-10-03T13:16:20Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
