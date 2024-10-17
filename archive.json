@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-15T01:17:52.680403+00:00",
+  "timestamp": "2024-10-17T01:17:12.426445+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -1065,6 +1065,32 @@
       "mergeCommit": {
         "oid": "65703e083853f1edbdd488b9406fb009b85f95c4"
       },
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 28,
+      "id": "PR_kwDOLqam7s5-vVJ6",
+      "title": "Adding a token exchange profile for X.509 certificate -> OAuth 2.0 access token.",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/28",
+      "state": "OPEN",
+      "author": "kenmccracken-google",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Add a profile for token exchange starting from an mTLS session, together with an appropriate request to the authorization server's token endpoint.  Add some terminology definitions.  Add a description of the relying party registration, but without constraining the registration syntax.",
+      "createdAt": "2024-10-15T22:14:37Z",
+      "updatedAt": "2024-10-16T14:40:19Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "0acd24c5a55424857215bd3dd1ad9dbe0c4d129f",
+      "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
+      "headRefName": "x509-access",
+      "headRefOid": "d4b313aa38cf95d6d89c06a10b1f558a41ee373b",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
       "comments": [],
       "reviews": []
     }
