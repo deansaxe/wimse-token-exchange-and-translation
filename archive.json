@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-17T01:17:12.426445+00:00",
+  "timestamp": "2024-10-20T01:23:20.130007+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -1080,19 +1080,33 @@
       "labels": [],
       "body": "Add a profile for token exchange starting from an mTLS session, together with an appropriate request to the authorization server's token endpoint.  Add some terminology definitions.  Add a description of the relying party registration, but without constraining the registration syntax.",
       "createdAt": "2024-10-15T22:14:37Z",
-      "updatedAt": "2024-10-16T14:40:19Z",
+      "updatedAt": "2024-10-18T18:59:25Z",
       "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
       "baseRefName": "main",
       "baseRefOid": "0acd24c5a55424857215bd3dd1ad9dbe0c4d129f",
       "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
       "headRefName": "x509-access",
-      "headRefOid": "d4b313aa38cf95d6d89c06a10b1f558a41ee373b",
+      "headRefOid": "0116c70573241186f5fef7a0d4f4ed53898a4ef6",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6NyYhw",
+          "commit": {
+            "abbreviatedOid": "0116c70"
+          },
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "state": "COMMENTED",
+          "body": "First quick review/reading, this looks good for the draft.   \r\n\r\n@gffletch, @idimaster, @adeinega I'd love your feedback.  I will plan to merge this and submit to IETF on Monday if there are no concerns posted.",
+          "createdAt": "2024-10-18T18:59:25Z",
+          "updatedAt": "2024-10-18T18:59:25Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
