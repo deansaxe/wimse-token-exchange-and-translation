@@ -8,30 +8,31 @@
 <meta content="Dean H. Saxe" name="author">
 <meta content="George Fletcher" name="author">
 <meta content="Andrii Deinega" name="author">
+<meta content="Ken McCracken" name="author">
 <meta content='
-       The specification defines the processes of token exchange and token translation for workloads.  Token exchange is introduced in  , allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token (OIDC), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by  .  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A, macaroons, &lt;...&gt;.  Further, these tokens may be encoded in formats including JWT OAuth 2.0 Acesss Tokens  , CWT  , and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in  , and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in (todo: add link to use cases doc). 
+       The specification defines the processes of token exchange and token translation for workloads.  Token exchange is introduced in  , allowing the exchange of access tokens, OpenID Connect ID Tokens, and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by  .  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A, macaroons, &lt;...&gt;.  Further, these tokens may be encoded in formats including JWT OAuth 2.0 Acesss Tokens  , CWT  , and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in  , and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in (todo: add link to use cases doc). 
     ' name="description">
-<meta content="xml2rfc 3.22.0" name="generator">
+<meta content="xml2rfc 3.23.2" name="generator">
 <meta content="workload identity" name="keyword">
 <meta content="token exchange" name="keyword">
 <meta content="token translation" name="keyword">
 <meta content="1" name="rfc.number">
 <!-- Generator version information:
-  xml2rfc 3.22.0
-    Python 3.12.3
+  xml2rfc 3.23.2
+    Python 3.12.7
     ConfigArgParse 1.7
-    google-i18n-address 3.1.0
+    google-i18n-address 3.1.1
     intervaltree 3.1.0
     Jinja2 3.1.4
     lxml 4.9.4
-    platformdirs 4.2.2
+    platformdirs 4.3.6
     pycountry 22.3.5
     PyYAML 6.0.1
     requests 2.32.3
-    setuptools 69.5.1
+    setuptools 70.3.0
     wcwidth 0.2.13
 -->
-<link href="draft-saxe-wimse-token-exchange-and-translation-protocol.xml" rel="alternate" type="application/rfc+xml">
+<link href="draft-saxe-wimse-token-exchange-and-translation.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
 <style type="text/css">@font-face {
   font-family: 'Lora';
@@ -1024,14 +1025,14 @@ svg :is([fill="white"], [fill^="#fff"]) {
 
 <link href="https://dx.doi.org/10.17487/rfc1" rel="alternate">
   <link href="urn:issn:2070-1721" rel="alternate">
-  <link href="https://datatracker.ietf.org/doc/draft-saxe-wimse-token-exchange-and-translation-protocol-latest" rel="prev">
+  <link href="https://datatracker.ietf.org/doc/draft-saxe-wimse-token-exchange-and-translation-latest" rel="prev">
   </head>
 <body class="xml2rfc">
 <table class="ears">
 <thead><tr>
 <td class="left">RFC 1</td>
 <td class="center">WIMSE Token Exchange &amp; Translation</td>
-<td class="right">July 2024</td>
+<td class="right">October 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Saxe, et al.</td>
@@ -1050,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="category">Informational</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-07-07" class="published">7 July 2024</time>
+<time datetime="2024-10-21" class="published">21 October 2024</time>
     </dd>
 <dt class="label-issn">ISSN:</dt>
 <dd class="issn">2070-1721</dd>
@@ -1058,7 +1059,6 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="authors">
 <div class="author">
       <div class="author-name">D. H. Saxe</div>
-<div class="org">Amazon Web Services</div>
 </div>
 <div class="author">
       <div class="author-name">G. Fletcher</div>
@@ -1067,6 +1067,10 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <div class="author">
       <div class="author-name">A. Deinega</div>
 </div>
+<div class="author">
+      <div class="author-name">K. McCracken</div>
+<div class="org">Google</div>
+</div>
 </dd>
 </dl>
 </div>
@@ -1074,7 +1078,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <h1 id="title">WIMSE Token Exchange and Translation Protocol</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">The specification defines the processes of token exchange and token translation for workloads.  Token exchange is introduced in <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>, allowing the exchange of access tokens, refresh tokens, OpenID Connect ID Token (OIDC), and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A, macaroons, &lt;...&gt;.  Further, these tokens may be encoded in formats including JWT OAuth 2.0 Acesss Tokens <span>[<a href="#RFC9068" class="cite xref">RFC9068</a>]</span>, CWT <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in (todo: add link to use cases doc).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">The specification defines the processes of token exchange and token translation for workloads.  Token exchange is introduced in <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>, allowing the exchange of access tokens, OpenID Connect ID Tokens, and SAML assertions for new OAuth access tokens. However, for workloads, there exist a broad array of input and output token types which must be considered beyond the input types supported by <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>.  These token types include, but are not limited to, SPIFFE SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A, macaroons, &lt;...&gt;.  Further, these tokens may be encoded in formats including JWT OAuth 2.0 Acesss Tokens <span>[<a href="#RFC9068" class="cite xref">RFC9068</a>]</span>, CWT <span>[<a href="#RFC8392" class="cite xref">RFC8392</a>]</span>, and protocol buffers (protobufs).  Given the variety and complexity of input and output token types and encoding, a strict token exchange that maintains all of the contextual information from the input token to the output token may not be possible.  We define these non-RFC8693 use cases with potentially lossy conversions as "token translation" (e.g. information may be lost in translation).   In this document we describe a workload profile for token exchange, using the mechanisms in <span>[<a href="#RFC8693" class="cite xref">RFC8693</a>]</span>, and a new set of translations between arbitrary token types.  Additionally, we define mechanisms to enrich tokens during translation to support the use cases defined in (todo: add link to use cases doc).<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1148,6 +1152,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-token-translation-profiles" class="internal xref">Token Translation Profiles</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-x509-certificate-to-access-" class="internal xref">X.509 Certificate to Access Token Profile</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
@@ -1203,6 +1212,24 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-terminology" class="section-name selfRef">Terminology</a>
       </h2>
 <p id="section-3-1">TODO: Define terms used by this specification<a href="#section-3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-2.1">
+          <p id="section-3-2.1.1">authorization server [<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>]<a href="#section-3-2.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-3">The server issuing access tokens to the client after successfully authenticating the resource owner and obtaining authorization.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-4.1">
+          <p id="section-3-4.1.1">workload [<a href="https://datatracker.ietf.org/doc/html/draft-ietf-wimse-arch">draft-ietf-wimse-arch</a>]<a href="#section-3-4.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-5">A workload is a running instance of software executing for a specific purpose. Workload typically interacts with other parts of a larger system. A workload may exist for a very short durations of time (fraction of a second) and run for a specific purpose such as to provide a response to an API request. Other kinds of workloads may execute for a very long duration, such as months or years. Examples include database services and machine learning training jobs.<a href="#section-3-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3-6.1">
+          <p id="section-3-6.1.1">token<a href="#section-3-6.1.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-3-7">An integrity-protected string denoting a lifetime and specific attributes of a security context. In the context of WIMSE, the token denotes attributes of a <em>workload</em> security context.<a href="#section-3-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="overview">
@@ -1248,6 +1275,121 @@ The aud (if no azp claim is present), sub, and amr claims are mapped to STS Sess
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-token-translation-profiles" class="section-name selfRef">Token Translation Profiles</a>
       </h2>
 <p id="section-6-1">TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<div id="x509-certificate-to-access-token-profile">
+<section id="section-6.1">
+        <h3 id="name-x509-certificate-to-access-">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-x509-certificate-to-access-" class="section-name selfRef">X.509 Certificate to Access Token Profile</a>
+        </h3>
+<p id="section-6.1-1">In [<a href="https://datatracker.ietf.org/doc/html/draft-ietf-wimse-arch">draft-ietf-wimse-arch</a>], Workloads may be issued Identity Credentials in the form of X.509 Certificates [<a href="https://datatracker.ietf.org/doc/html/rfc5280">RFC5280</a>], for Workload-to-Workload communication over mututal TLS (mTLS). Workload Agents must request the X.509 Certificate Credentials by undergoing Attestation against both the local Host Operating System and Hardware, and a remote Server with access to a Certificate Authority (CA). If the Server confirms sufficient evidence has been presented for Attestation, the Workload is issued X.509 Certificates identifying it. The identity is conveyed in a URI Subject Aleternative Name (SAN) within the X.509 Certificate.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">Authorization servers issue OAuth 2.0 Access Tokens to client applications.  If the resource owner has granted sufficient privileges to a protected resource, the issued access token can be used to access protected resources on resource servers.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+<p id="section-6.1-3">The Workloads possessing X.509 Certificate Identity Credentials may operate in an environment that is isolated from the security domain of a protected resource. In the case where the protected resource is protected by an external OAuth 2.0 Authorization Server, X.509 Certificate-to-Access Token exchange may be configured. The Trust across the isolated security domains must first be established. Relying parties must describe, via secure configurations, a mapping that crosses the security domains from the X.509 certificate authority(ies) to the OAuth 2.0 authorization server. The specification for authenticating the relying party and for the format of the configurations are out of scope of this specification. The following configurations <span class="bcp14">MAY</span> be registered by a relying party at the OAuth 2.0 authorization server:<a href="#section-6.1-3" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-6.1-4">
+<li id="section-6.1-4.1">
+            <p id="section-6.1-4.1.1">A set of one or more Trust Anchors <span class="bcp14">MUST</span> be configured for the relying party at the OAuth 2.0 authorization server, representing authoritative entities with a public key and associated data, as defined in [<a href="https://datatracker.ietf.org/doc/html/rfc6024">RFC6024</a>]. These configurations <span class="bcp14">MUST</span> be represented as X.509 CA certificates in either DER or PEM format.<a href="#section-6.1-4.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-6.1-4.2">
+            <p id="section-6.1-4.2.1">A set of intermediate entities with public key and associated data, expressed as X.509 CA certificates in either DER or PEM format, <span class="bcp14">MAY</span> be configured for the relying party at the OAuth 2.0 authorization server. The intermediate CA certificates are for the purposes of certificate chain path building in scenarios where clients cannot or may not provide these intermediate certificates during mTLS handshakes.<a href="#section-6.1-4.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-6.1-4.3">
+            <p id="section-6.1-4.3.1">A mapping <span class="bcp14">MUST</span> describe the certificate attribute(s) used to select and or construct the subject claim in the OAuth 2.0 access tokens. Possible X.509 certificate properties include the following:<a href="#section-6.1-4.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-4.3.2.1">
+                <p id="section-6.1-4.3.2.1.1">subject's common name (CN)<a href="#section-6.1-4.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.3.2.2">
+                <p id="section-6.1-4.3.2.2.1">first subject alternative names (SAN) DNS Name entry<a href="#section-6.1-4.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.3.2.3">
+                <p id="section-6.1-4.3.2.3.1">first subject alternative names (SAN) URI entry<a href="#section-6.1-4.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li id="section-6.1-4.4">
+            <p id="section-6.1-4.4.1">A set of conditions <span class="bcp14">MAY</span> be defined to constrain the client certificates that <span class="bcp14">SHALL</span> be accepted.  An example might be a constraint that the certificate's first SAN URI entry must start with <code>spiffe://example.com/foo</code>, or that the certificate's first SAN DNS Name entry must end with <code>.example.com</code>.<a href="#section-6.1-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li id="section-6.1-4.5">
+            <p id="section-6.1-4.5.1">A mapping <span class="bcp14">MAY</span> describe additional certificate attributes that may be encoded in the issued OAuth 2.0 access tokens to be interpreted as part of access policy decisions.  These <span class="bcp14">MAY</span> include any of the following properties<a href="#section-6.1-4.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-4.5.2.1">
+                <p id="section-6.1-4.5.2.1.1">hex-encoded serial number<a href="#section-6.1-4.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.2">
+                <p id="section-6.1-4.5.2.2.1">subject DN common name<a href="#section-6.1-4.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.3">
+                <p id="section-6.1-4.5.2.3.1">subject DN organization name<a href="#section-6.1-4.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.4">
+                <p id="section-6.1-4.5.2.4.1">subject DN subject organization unit<a href="#section-6.1-4.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.5">
+                <p id="section-6.1-4.5.2.5.1">issuer DN common name<a href="#section-6.1-4.5.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.6">
+                <p id="section-6.1-4.5.2.6.1">issuer DN organization name<a href="#section-6.1-4.5.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.7">
+                <p id="section-6.1-4.5.2.7.1">issuer DN organization unit<a href="#section-6.1-4.5.2.7.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.8">
+                <p id="section-6.1-4.5.2.8.1">the first subject alternative name (SAN) of type DNS name<a href="#section-6.1-4.5.2.8.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-6.1-4.5.2.9">
+                <p id="section-6.1-4.5.2.9.1">the first subject alternative name (SAN) of type URI<a href="#section-6.1-4.5.2.9.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ol>
+<p id="section-6.1-5">Compatible OAuth 2.0 Authorization Servers supporting this token exchange profile <span class="bcp14">MUST</span> supports mTLS. After the relying party has registered an X.509 Certificate federation profile with the OAuth 2.0 authorization server, in order to obtain access tokens, Workloads <span class="bcp14">MUST</span> present their X.509 Certificates during mTLS handshakes to establish a connection to the OAuth 2.0 Authorization Server.  Workloads <span class="bcp14">MUST</span> then send a request to token endpoint, in the manner described in [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>]. The access token request is sent with the following properties:<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-6.1">
+            <p id="section-6.1-6.1.1">grant_type: <span class="bcp14">REQUIRED</span>. The value <code>urn:ietf:params:oauth:grant-type:token-exchange</code> indicates that a token exchange is being performed.<a href="#section-6.1-6.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.2">
+            <p id="section-6.1-6.2.1">resource: <span class="bcp14">OPTIONAL</span>. A URI that indicates the target service or resource where the client intends to use the requested security token.<a href="#section-6.1-6.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.3">
+            <p id="section-6.1-6.3.1">audience: <span class="bcp14">REQUIRED</span> for this Profile. A URI or other unique identifier for the relying party, assigned by the OAuth 2.0 Authorization Server.<a href="#section-6.1-6.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.4">
+            <p id="section-6.1-6.4.1">scope: <span class="bcp14">OPTIONAL</span>. A list of space-delimited, case-sensitive strings, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-3.3">Section 3.3</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>], that allow the client to specify the desired scope of the requested security token in the context of the service or resource where the token will be used.<a href="#section-6.1-6.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.5">
+            <p id="section-6.1-6.5.1">requested_token_type: <code>urn:ietf:params:oauth:token-type:access_token</code><a href="#section-6.1-6.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.6">
+            <p id="section-6.1-6.6.1">subject_token: TBD. While this field is listed as <span class="bcp14">REQUIRED</span> for token exchange in <a href="https://datatracker.ietf.org/doc/html/rfc8693#name-request">Section 2.1</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>], in this case supplying the subject token again may be redundant, since it was already conveyed during the mTLS handshake. It is unclear whether repeating it here adds additional value. If supplied, it introduces the possibility that the client sends the wrong value, complicating client integration. It adds network overhead of a few KB, which could grow larger for longer certificate chains. It might be best to mark this as: <span class="bcp14">OPTIONAL</span>. The Workload's X.509 Certificate chain. The X.509 Certificate chain <span class="bcp14">MUST</span> chain to a previously-configured Trust Anchor certificate for the relying party, either directly or through one of the previously-configured Intermediate CA path-building certificates. This field <span class="bcp14">MUST</span> be expressed as a PEM-encoded certificate chain with newline characters removed.<a href="#section-6.1-6.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-6.7">
+            <p id="section-6.1-6.7.1">subject_token_type: <code>urn:ietf:params:oauth:token-type:mtls</code><a href="#section-6.1-6.7.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-6.1-7">The request <span class="bcp14">MAY</span> ONLY be accepted if the X.509 Certificate used during mTLS chain to a previously-configured Trust Anchor via a certificate path that may include previously-configured intermediate CA certificates. The previously-configured subject claim selector must be provide a non-blank string from the certificate. The previously-configured conditions must accept the X.509 Certificate.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
+<p id="section-6.1-8">The response document contains the following properties (per [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>]):<a href="#section-6.1-8" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-6.1-9.1">
+            <p id="section-6.1-9.1.1">access_token: <span class="bcp14">REQUIRED</span>. The security token issued by the authorization server in response to the token exchange request.<a href="#section-6.1-9.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-9.2">
+            <p id="section-6.1-9.2.1">issued_token_type: <span class="bcp14">REQUIRED</span>. Must be <code>urn:ietf:params:oauth:token-type:access_token</code> for this Profile.<a href="#section-6.1-9.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-9.3">
+            <p id="section-6.1-9.3.1">token_type: <span class="bcp14">REQUIRED</span>. Must be <code>bearer</code> for this Profile.<a href="#section-6.1-9.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-9.4">
+            <p id="section-6.1-9.4.1">expires_in: <span class="bcp14">RECOMMENDED</span>. The validity lifetime, in seconds, of the token issued by the authorization server.<a href="#section-6.1-9.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-9.5">
+            <p id="section-6.1-9.5.1">scope: <span class="bcp14">OPTIONAL</span> if the scope of the issued security token is identical to the scope requested by the client; otherwise, it is <span class="bcp14">REQUIRED</span>.<a href="#section-6.1-9.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-6.1-9.6">
+            <p id="section-6.1-9.6.1">refresh_token: <span class="bcp14">MUST NOT</span> be returned for this Profile.<a href="#section-6.1-9.6.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-6.1-10">The X.509 Certificate-to-Access Token Exchange Profile <span class="bcp14">MUST NOT</span> relax the validity constraint of the input security context. The returned Access Token <span class="bcp14">MUST NOT</span> have a not before claim that preceeds the <code>notBefore</code> constraint of the X.509 Certificate used. The returned Access Token <span class="bcp14">MUST NOT</span> have an expiration time claim that exceeds the <code>notAfter</code> constraint of the X.509 Certificate used.<a href="#section-6.1-10" class="pilcrow">¶</a></p>
+<p id="section-6.1-11">To mitigate the impact of Access Token theft, it is <span class="bcp14">RECOMMENDED</span> that the returned Access Token be sender-constrained. The Authorization Server <span class="bcp14">MAY</span> bind the Access Token to the X.509 Certificate that was used to obtain it, in the manner described in <a href="https://datatracker.ietf.org/doc/html/rfc8705#name-mutual-tls-client-certifica">Section 3</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc8705">RFC8705</a>]. Based on authentication policy, Resource Servers <span class="bcp14">MAY</span> enforce that an Access Token bound to an X.509 Certificate CAN NOT be used to access any protected resources, unless the same X.509 Certificate was used during the mTLS handshake to the Resource Server.<a href="#section-6.1-11" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1351,10 +1493,9 @@ These countermeasures become even more significant when an entity issuing securi
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Dean H. Saxe</span></div>
-<div dir="auto" class="left"><span class="org">Amazon Web Services</span></div>
 <div class="email">
 <span>Email:</span>
-<a href="mailto:deansaxe@amazon.com" class="email">deansaxe@amazon.com</a>
+<a href="mailto:dean@thesax.es" class="email">dean@thesax.es</a>
 </div>
 </address>
 <address class="vcard">
@@ -1370,6 +1511,14 @@ These countermeasures become even more significant when an entity issuing securi
 <div class="email">
 <span>Email:</span>
 <a href="mailto:andrii.deinega@gmail.com" class="email">andrii.deinega@gmail.com</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Ken McCracken</span></div>
+<div dir="auto" class="left"><span class="org">Google</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:kenmccracken@google.com" class="email">kenmccracken@google.com</a>
 </div>
 </address>
 </section>
