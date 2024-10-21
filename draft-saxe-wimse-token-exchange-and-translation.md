@@ -98,7 +98,7 @@ The server issuing access tokens to the client after successfully authenticating
 
 * workload [[draft-ietf-wimse-arch](https://datatracker.ietf.org/doc/html/draft-ietf-wimse-arch)]
 
-A workload is a running instance of software executing for a specific purpose. Workload typically interacts with other parts of a larger system. A workload may exist for a very short durations of time (fraction of a second) and run for a specific purpose such as to provide a response to an API request. Other kinds of workloads may execute for a very long duration, such as months or years. Examples include database services and machine learning training jobs. 
+A workload is a running instance of software executing for a specific purpose. Workload typically interacts with other parts of a larger system. A workload may exist for a very short durations of time (fraction of a second) and run for a specific purpose such as to provide a response to an API request. Other kinds of workloads may execute for a very long duration, such as months or years. Examples include database services and machine learning training jobs.
 
 * token
 
@@ -133,7 +133,7 @@ TODO - Define a new translation endpoint.
 
 TODO - this draft does not define normative specs for translating from arbitrary format to another arbitrary format.  Profiles describing specific token translations must be developed and their names (possibly?) registered with IANA.  Profiles will define any losses that may occur during translation and the risks associated with the loss of context.  Not all token pairs can be translated, some may only be translatable in one direction.
 
-## X.509 Certificate to Access Token Profile 
+## X.509 Certificate to Access Token Profile
 
 In [[draft-ietf-wimse-arch](https://datatracker.ietf.org/doc/html/draft-ietf-wimse-arch)], Workloads may be issued Identity Credentials in the form of X.509 Certificates [[RFC5280](https://datatracker.ietf.org/doc/html/rfc5280)], for Workload-to-Workload communication over mututal TLS (mTLS). Workload Agents must request the X.509 Certificate Credentials by undergoing Attestation against both the local Host Operating System and Hardware, and a remote Server with access to a Certificate Authority (CA). If the Server confirms sufficient evidence has been presented for Attestation, the Workload is issued X.509 Certificates identifying it. The identity is conveyed in a URI Subject Aleternative Name (SAN) within the X.509 Certificate.
 
