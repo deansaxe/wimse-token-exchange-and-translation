@@ -1051,7 +1051,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="category">Informational</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2024-10-21" class="published">21 October 2024</time>
+<time datetime="2024-10-22" class="published">22 October 2024</time>
     </dd>
 <dt class="label-issn">ISSN:</dt>
 <dd class="issn">2070-1721</dd>
@@ -1340,7 +1340,7 @@ The aud (if no azp claim is present), sub, and amr claims are mapped to STS Sess
             </ul>
 </li>
         </ol>
-<p id="section-6.1-5">Compatible OAuth 2.0 Authorization Servers supporting this token exchange profile <span class="bcp14">MUST</span> supports mTLS. After the relying party has registered an X.509 Certificate federation profile with the OAuth 2.0 authorization server, in order to obtain access tokens, Workloads <span class="bcp14">MUST</span> present their X.509 Certificates during mTLS handshakes to establish a connection to the OAuth 2.0 Authorization Server.  Workloads <span class="bcp14">MUST</span> then send a request to token endpoint, in the manner described in [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>]. The access token request is sent with the following properties:<a href="#section-6.1-5" class="pilcrow">¶</a></p>
+<p id="section-6.1-5">Compatible OAuth 2.0 Authorization Servers supporting this token exchange profile <span class="bcp14">MUST</span> support mTLS. After the relying party has registered an X.509 Certificate federation profile with the OAuth 2.0 authorization server, in order to obtain access tokens, Workloads <span class="bcp14">MUST</span> present their X.509 Certificates during mTLS handshakes to establish a connection to the OAuth 2.0 Authorization Server.  Workloads <span class="bcp14">MUST</span> then send a request to token endpoint, in the manner described in [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>]. The access token request is sent with the following properties:<a href="#section-6.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-6.1">
             <p id="section-6.1-6.1.1">grant_type: <span class="bcp14">REQUIRED</span>. The value <code>urn:ietf:params:oauth:grant-type:token-exchange</code> indicates that a token exchange is being performed.<a href="#section-6.1-6.1.1" class="pilcrow">¶</a></p>
@@ -1355,16 +1355,16 @@ The aud (if no azp claim is present), sub, and amr claims are mapped to STS Sess
             <p id="section-6.1-6.4.1">scope: <span class="bcp14">OPTIONAL</span>. A list of space-delimited, case-sensitive strings, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc6749#section-3.3">Section 3.3</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc6749">RFC6749</a>], that allow the client to specify the desired scope of the requested security token in the context of the service or resource where the token will be used.<a href="#section-6.1-6.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-6.5">
-            <p id="section-6.1-6.5.1">requested_token_type: <code>urn:ietf:params:oauth:token-type:access_token</code><a href="#section-6.1-6.5.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-6.5.1">requested_token_type: <span class="bcp14">MUST</span> be <code>urn:ietf:params:oauth:token-type:access_token</code> for this token exchange profile.<a href="#section-6.1-6.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-6.6">
-            <p id="section-6.1-6.6.1">subject_token: TBD. While this field is listed as <span class="bcp14">REQUIRED</span> for token exchange in <a href="https://datatracker.ietf.org/doc/html/rfc8693#name-request">Section 2.1</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>], in this case supplying the subject token again may be redundant, since it was already conveyed during the mTLS handshake. It is unclear whether repeating it here adds additional value. If supplied, it introduces the possibility that the client sends the wrong value, complicating client integration. It adds network overhead of a few KB, which could grow larger for longer certificate chains. It might be best to mark this as: <span class="bcp14">OPTIONAL</span>. The Workload's X.509 Certificate chain. The X.509 Certificate chain <span class="bcp14">MUST</span> chain to a previously-configured Trust Anchor certificate for the relying party, either directly or through one of the previously-configured Intermediate CA path-building certificates. This field <span class="bcp14">MUST</span> be expressed as a PEM-encoded certificate chain with newline characters removed.<a href="#section-6.1-6.6.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-6.6.1">subject_token: <span class="bcp14">REQUIRED</span>. The fixed string <code>mtls_client_certificate</code> instructs the Authorization Server to obtain the subject token from the client's mTLS Certificate message, as defined in <a href="https://datatracker.ietf.org/doc/html/rfc8446#section-2">Section 2</a> of [<a href="https://datatracker.ietf.org/doc/html/rfc8446">RFC8446</a>]. The X.509 Certificate chain <span class="bcp14">MUST</span> chain to a previously-configured Trust Anchor certificate for the relying party, either directly or through one of the previously-configured Intermediate CA path-building certificates.<a href="#section-6.1-6.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-6.1-6.7">
-            <p id="section-6.1-6.7.1">subject_token_type: <code>urn:ietf:params:oauth:token-type:mtls</code><a href="#section-6.1-6.7.1" class="pilcrow">¶</a></p>
+            <p id="section-6.1-6.7.1">subject_token_type: <span class="bcp14">MUST</span> be <code>urn:ietf:params:oauth:token-type:mtls</code> for this token exchange profile.<a href="#section-6.1-6.7.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-6.1-7">The request <span class="bcp14">MAY</span> ONLY be accepted if the X.509 Certificate used during mTLS chain to a previously-configured Trust Anchor via a certificate path that may include previously-configured intermediate CA certificates. The previously-configured subject claim selector must be provide a non-blank string from the certificate. The previously-configured conditions must accept the X.509 Certificate.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
+<p id="section-6.1-7">The request <span class="bcp14">MUST</span> ONLY be accepted if the X.509 Certificate used during mTLS chain to a previously-configured Trust Anchor via a certificate path that may include previously-configured intermediate CA certificates. The previously-configured subject claim selector <span class="bcp14">MUST</span> select a non-blank string from the certificate. The previously-configured conditions <span class="bcp14">MUST</span> accept the X.509 Certificate.<a href="#section-6.1-7" class="pilcrow">¶</a></p>
 <p id="section-6.1-8">The response document contains the following properties (per [<a href="https://datatracker.ietf.org/doc/html/rfc8693">RFC8693</a>]):<a href="#section-6.1-8" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-6.1-9.1">
