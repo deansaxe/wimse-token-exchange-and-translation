@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-22T01:18:09.119812+00:00",
+  "timestamp": "2024-10-24T01:17:06.680878+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -299,6 +299,37 @@
       "updatedAt": "2024-10-03T13:16:20Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 30,
+      "id": "I_kwDOLqam7s6bTizq",
+      "title": "Define a fixed value for the subject token",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/30",
+      "state": "OPEN",
+      "author": "frumioj",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/ce80fbf37680a88225111be8d92916f9beeef8ec/draft-saxe-wimse-token-exchange-and-translation.md?plain=1#L169\r\n\r\nDefine a fixed value with semantics that are effectively \"use the subject in the X509 certificate passed into the mTLS handshake\"",
+      "createdAt": "2024-10-22T14:14:27Z",
+      "updatedAt": "2024-10-22T15:29:31Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "Relevant meeting notes at https://hackmd.io/@7hs-23SmTxqEA2Gj2l-DIA/Syuh1VBxye\r\n",
+          "createdAt": "2024-10-22T15:28:32Z",
+          "updatedAt": "2024-10-22T15:28:32Z"
+        },
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "@frumioj did #31 address this sufficiently? cc: @kenmccracken-google ",
+          "createdAt": "2024-10-22T15:29:29Z",
+          "updatedAt": "2024-10-22T15:29:29Z"
+        }
+      ]
     }
   ],
   "pulls": [
@@ -1145,6 +1176,63 @@
         }
       ],
       "reviews": []
+    },
+    {
+      "number": 31,
+      "id": "PR_kwDOLqam7s5_esaz",
+      "title": "Update draft-saxe-wimse-token-exchange-and-translation.md",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/31",
+      "state": "MERGED",
+      "author": "kenmccracken-google",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on suggestions from today's office hours meeting, update the subject_token to require a string constant value.  Also fixed grammar and added some MUSTs where appropriate.",
+      "createdAt": "2024-10-22T15:25:36Z",
+      "updatedAt": "2024-10-22T19:31:45Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "ce80fbf37680a88225111be8d92916f9beeef8ec",
+      "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
+      "headRefName": "x509_subject_token",
+      "headRefOid": "f4d8cd409ae77d98890fe2be742f89f01d03d632",
+      "closedAt": "2024-10-22T19:31:23Z",
+      "mergedAt": "2024-10-22T19:31:23Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "29be11417c12f1eb221d8315c60ffb4cf7cec933"
+      },
+      "comments": [
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "Relevant notes: https://hackmd.io/@7hs-23SmTxqEA2Gj2l-DIA/Syuh1VBxye",
+          "createdAt": "2024-10-22T15:27:47Z",
+          "updatedAt": "2024-10-22T15:27:47Z"
+        },
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "This will go into the -02 version when I push it to datatracker.",
+          "createdAt": "2024-10-22T19:31:44Z",
+          "updatedAt": "2024-10-22T19:31:44Z"
+        }
+      ],
+      "reviews": [
+        {
+          "id": "PRR_kwDOLqam7s6ON946",
+          "commit": {
+            "abbreviatedOid": "f4d8cd4"
+          },
+          "author": "frumioj",
+          "authorAssociation": "NONE",
+          "state": "COMMENTED",
+          "body": "Works for me, thanks!",
+          "createdAt": "2024-10-22T18:52:18Z",
+          "updatedAt": "2024-10-22T18:52:18Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
