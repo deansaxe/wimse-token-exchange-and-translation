@@ -213,6 +213,10 @@ This document has no IANA actions.
 
 ## Appendix 1 - Non-normative token exchange examples
 
+## Appendix 2 - Token Exchange and Translation Profile Template
+
+The following text represents a proposed template for writing Token Exchange and Translation Profiles.  Although this text is not normative, it is strongly recommended that authors of token profiles follow this template.
+
 
 --- back
 
