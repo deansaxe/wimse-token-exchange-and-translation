@@ -215,8 +215,20 @@ This document has no IANA actions.
 
 ## Appendix 2 - Token Exchange and Translation Profile Template
 
-The following text represents a proposed template for writing Token Exchange and Translation Profiles.  Although this text is not normative, it is strongly recommended that authors of token profiles follow this template.
+The following text represents a proposed template for writing Token Exchange and Translation Profiles.  Although this text is not normative, it is strongly recommended that authors of token profiles follow this template.  Note that the below template does not include each of the standard required sections in an RFC. The template only contains the recommended sections for developing a token exchange/translation profile.  
 
+# Introduction
+
+This document creates a token (exchange|translation) profile for exchanging token format A to token format B.  This profile allows for tokens to be exchanged (within|across) trust domains by enabling the following use cases: (list relevant use cases from the WIMSE token exchange use cases document). 
+
+# Overview
+_Write an overview of the token exchange / translation event supported here.  Describe relevant use cases for this token translation.  Identify if this profile is a profile of another profile, e.g. to add new functionality to the token exchange or translation event such as adding additional context, changing signature types, etc._
+
+# Token (Exchange|Translation) Mechanism
+_In this section, document the specifics of the token exchange or translation mechanism.  This includes, but is not limited to, mapping claims from one naming scheme to another, defining how the original context is maintained and propagated downstream, identifying any data that is lost during translation, etc.  If there is any data loss, this must be described fully to indicate what data is lost in translation._
+
+# Security Considerations
+_In this section, describe the security issues that arise.  Data loss is a special consideration and should be addressed in terms of the primary risks of data loss, and the downstream risks of conducting further token exchanges downstream and/or how data loss impacts the ability to translate from format B back to format A.  The risks of data loss grow across multiple translation events and should be explicitly described._
 
 --- back
 
