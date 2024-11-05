@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-03T01:22:32.231246+00:00",
+  "timestamp": "2024-11-05T01:15:51.239505+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -330,6 +330,38 @@
           "updatedAt": "2024-10-22T15:29:29Z"
         }
       ]
+    },
+    {
+      "number": 33,
+      "id": "I_kwDOLqam7s6c-S3R",
+      "title": "Batch processing and Transaction Tokens",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/33",
+      "state": "OPEN",
+      "author": "gffletch",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "In the IETF 121 OAuth meetings, I presented on the topic of how to support \"batch processing\" transactions within the Transaction Token spec ([Issue 111](https://github.com/oauth-wg/oauth-transaction-tokens/issues/111)). It was recommended to bring this topic to WIMSE as regardless of whether the batch processing is more workload centric or user centric, at lot of the same challenges exist.\r\n\r\nMaybe not a \"batch process\" but a long running user process is \"Delete my account\". In most systems coordinating the deletion of the user's data across all systems can take some time and have different system SLAs.\r\n\r\nAs a long-running workload kicks off... there is one authorization regarding whether the effort itself is authorized. Additionally, as the process continues, there may be needs to obtain transaction tokens for specific calls.",
+      "createdAt": "2024-11-04T18:44:23Z",
+      "updatedAt": "2024-11-04T18:44:23Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 34,
+      "id": "I_kwDOLqam7s6c-VYR",
+      "title": "Deployment models, Transaction Tokens and Discovery",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/34",
+      "state": "OPEN",
+      "author": "gffletch",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Another topic discussed in the IETF 121 OAuth meetings is the discovery of the token issuing service (Transaction Token Service) and whether different deployment models affect discovery or token issuance in any way.\r\n\r\nThree possible deployment models (NOT exhaustive):\r\n\r\n1. Embedded in an Authorization Server, or API GW\r\n2. Single HA Transaction Token Service\r\n3. Distributed (geographically) Transaction Token Service\r\n\r\nHow does a client of the Transaction Token Service endpoint know where to go? Is this out-of-scope for any specifications and the security concern of a client sending a transaction token request to an incorrect (unauthorized) endpoint should just be clearly called out in the security considerations.\r\n\r\nThe thinking from the OAuth meeting is that this topic should be discussed in WIMSE as well.\r\n\r\nOAuth Transaction Tokens github [repository](https://github.com/oauth-wg/oauth-transaction-tokens).",
+      "createdAt": "2024-11-04T18:49:54Z",
+      "updatedAt": "2024-11-04T18:49:54Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -1233,6 +1265,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 32,
+      "id": "PR_kwDOLqam7s6AzT-Y",
+      "title": "Starting work on the profile appendix",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/32",
+      "state": "OPEN",
+      "author": "deansaxe",
+      "authorAssociation": "OWNER",
+      "assignees": [],
+      "labels": [],
+      "body": "Writing a template for authors to use for developing token exchange and translation profiles.",
+      "createdAt": "2024-11-04T13:38:34Z",
+      "updatedAt": "2024-11-04T16:23:56Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "29be11417c12f1eb221d8315c60ffb4cf7cec933",
+      "headRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "headRefName": "deansaxe-profile-template-1",
+      "headRefOid": "db877edd4680cf2b7e8dee30a8aaa2854b579351",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
