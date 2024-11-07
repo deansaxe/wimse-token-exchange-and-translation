@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-05T01:15:51.239505+00:00",
+  "timestamp": "2024-11-07T01:16:13.944956+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -343,9 +343,17 @@
       "labels": [],
       "body": "In the IETF 121 OAuth meetings, I presented on the topic of how to support \"batch processing\" transactions within the Transaction Token spec ([Issue 111](https://github.com/oauth-wg/oauth-transaction-tokens/issues/111)). It was recommended to bring this topic to WIMSE as regardless of whether the batch processing is more workload centric or user centric, at lot of the same challenges exist.\r\n\r\nMaybe not a \"batch process\" but a long running user process is \"Delete my account\". In most systems coordinating the deletion of the user's data across all systems can take some time and have different system SLAs.\r\n\r\nAs a long-running workload kicks off... there is one authorization regarding whether the effort itself is authorized. Additionally, as the process continues, there may be needs to obtain transaction tokens for specific calls.",
       "createdAt": "2024-11-04T18:44:23Z",
-      "updatedAt": "2024-11-04T18:44:23Z",
+      "updatedAt": "2024-11-06T08:24:15Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "Thanks George. I'm not sure we'll discuss this at IETF121, but this is a cross-cutting concern that we'll need to solve for.",
+          "createdAt": "2024-11-06T08:24:13Z",
+          "updatedAt": "2024-11-06T08:24:13Z"
+        }
+      ]
     },
     {
       "number": 34,
@@ -1285,6 +1293,32 @@
       "headRepository": "deansaxe/wimse-token-exchange-and-translation",
       "headRefName": "deansaxe-profile-template-1",
       "headRefOid": "db877edd4680cf2b7e8dee30a8aaa2854b579351",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
+    },
+    {
+      "number": 35,
+      "id": "PR_kwDOLqam7s6BGaph",
+      "title": "X509 inline",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/35",
+      "state": "OPEN",
+      "author": "kenmccracken-google",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add support for inlining the X.509 Certificate chain in the `subject_token` parameter.  \r\n\r\nThe format for an inlined X.509 Certificate Chain must match https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.6 , the X.509 Certificate chain must be validated to one of the pre-configured TrustAnchors for the Relying Party, and the X.509 Leaf certificate must match the one used during mTLS.",
+      "createdAt": "2024-11-06T19:37:33Z",
+      "updatedAt": "2024-11-06T19:37:33Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "29be11417c12f1eb221d8315c60ffb4cf7cec933",
+      "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
+      "headRefName": "x509-inline",
+      "headRefOid": "02f74f24012ad4c8a80bdeebcc6290a8ac81149f",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
