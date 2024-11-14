@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-12T01:15:15.247643+00:00",
+  "timestamp": "2024-11-14T01:16:55.552888+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -390,9 +390,17 @@
       "labels": [],
       "body": "Following the side meeting on November 8, 2024, I suggest we pull the existing x509 profile into its own RFC style document.   \r\n\r\nI've created a document with the current text, not including the pending PR #35.  The new document can be found at https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/main/draft-mccracken-wimse-x509-to-access-token-exchange-profile.md.\r\n\r\n@kenmccracken-google please review and update as needed.  I have given you permissions as a contributor to execute changes directly.  You may close this issue once you've had a chance to review the new document. ",
       "createdAt": "2024-11-08T14:56:40Z",
-      "updatedAt": "2024-11-08T14:57:28Z",
+      "updatedAt": "2024-11-13T23:50:30Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "kenmccracken-google",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "Thanks, @deansaxe .  This looks good.  I'll modify my previous PR #35 to port the changes into this new file.",
+          "createdAt": "2024-11-13T23:50:29Z",
+          "updatedAt": "2024-11-13T23:50:29Z"
+        }
+      ]
     }
   ],
   "pulls": [
