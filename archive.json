@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-14T01:16:55.552888+00:00",
+  "timestamp": "2024-11-17T01:25:19.671447+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -401,6 +401,22 @@
           "updatedAt": "2024-11-13T23:50:29Z"
         }
       ]
+    },
+    {
+      "number": 37,
+      "id": "I_kwDOLqam7s6erfeo",
+      "title": "Profile to/from http message signature",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/issues/37",
+      "state": "OPEN",
+      "author": "identitymonk",
+      "authorAssociation": "NONE",
+      "assignees": [],
+      "labels": [],
+      "body": "Based on https://datatracker.ietf.org/doc/html/rfc9421",
+      "createdAt": "2024-11-15T14:42:47Z",
+      "updatedAt": "2024-11-15T14:42:47Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
