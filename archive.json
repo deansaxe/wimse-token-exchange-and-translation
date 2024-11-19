@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-17T01:25:19.671447+00:00",
+  "timestamp": "2024-11-19T01:21:20.495230+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -390,7 +390,7 @@
       "labels": [],
       "body": "Following the side meeting on November 8, 2024, I suggest we pull the existing x509 profile into its own RFC style document.   \r\n\r\nI've created a document with the current text, not including the pending PR #35.  The new document can be found at https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/main/draft-mccracken-wimse-x509-to-access-token-exchange-profile.md.\r\n\r\n@kenmccracken-google please review and update as needed.  I have given you permissions as a contributor to execute changes directly.  You may close this issue once you've had a chance to review the new document. ",
       "createdAt": "2024-11-08T14:56:40Z",
-      "updatedAt": "2024-11-13T23:50:30Z",
+      "updatedAt": "2024-11-18T22:16:24Z",
       "closedAt": null,
       "comments": [
         {
@@ -399,6 +399,13 @@
           "body": "Thanks, @deansaxe .  This looks good.  I'll modify my previous PR #35 to port the changes into this new file.",
           "createdAt": "2024-11-13T23:50:29Z",
           "updatedAt": "2024-11-13T23:50:29Z"
+        },
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "Please let me know when that's complete. Thanks.",
+          "createdAt": "2024-11-18T22:16:22Z",
+          "updatedAt": "2024-11-18T22:16:22Z"
         }
       ]
     },
@@ -1326,25 +1333,33 @@
       "id": "PR_kwDOLqam7s6AzT-Y",
       "title": "Starting work on the profile appendix",
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/32",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "deansaxe",
       "authorAssociation": "OWNER",
       "assignees": [],
       "labels": [],
       "body": "Writing a template for authors to use for developing token exchange and translation profiles.",
       "createdAt": "2024-11-04T13:38:34Z",
-      "updatedAt": "2024-11-04T16:23:56Z",
+      "updatedAt": "2024-11-18T22:14:30Z",
       "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
       "baseRefName": "main",
       "baseRefOid": "29be11417c12f1eb221d8315c60ffb4cf7cec933",
       "headRepository": "deansaxe/wimse-token-exchange-and-translation",
       "headRefName": "deansaxe-profile-template-1",
       "headRefOid": "db877edd4680cf2b7e8dee30a8aaa2854b579351",
-      "closedAt": null,
+      "closedAt": "2024-11-18T22:14:29Z",
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "deansaxe",
+          "authorAssociation": "OWNER",
+          "body": "I'm going to kill off this effort after the IETF 121 side meeting where it was discussed that this is low value work.  We will focus on writing some actual profiles instead.",
+          "createdAt": "2024-11-18T22:14:29Z",
+          "updatedAt": "2024-11-18T22:14:29Z"
+        }
+      ],
       "reviews": []
     },
     {
