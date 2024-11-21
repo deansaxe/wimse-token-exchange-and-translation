@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-11-19T01:21:20.495230+00:00",
+  "timestamp": "2024-11-21T01:20:25.175363+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -390,7 +390,7 @@
       "labels": [],
       "body": "Following the side meeting on November 8, 2024, I suggest we pull the existing x509 profile into its own RFC style document.   \r\n\r\nI've created a document with the current text, not including the pending PR #35.  The new document can be found at https://github.com/deansaxe/wimse-token-exchange-and-translation/blob/main/draft-mccracken-wimse-x509-to-access-token-exchange-profile.md.\r\n\r\n@kenmccracken-google please review and update as needed.  I have given you permissions as a contributor to execute changes directly.  You may close this issue once you've had a chance to review the new document. ",
       "createdAt": "2024-11-08T14:56:40Z",
-      "updatedAt": "2024-11-18T22:16:24Z",
+      "updatedAt": "2024-11-19T14:42:30Z",
       "closedAt": null,
       "comments": [
         {
@@ -406,6 +406,13 @@
           "body": "Please let me know when that's complete. Thanks.",
           "createdAt": "2024-11-18T22:16:22Z",
           "updatedAt": "2024-11-18T22:16:22Z"
+        },
+        {
+          "author": "kenmccracken-google",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "@deansaxe it is complete, please see PR #38",
+          "createdAt": "2024-11-19T14:42:29Z",
+          "updatedAt": "2024-11-19T14:42:29Z"
         }
       ]
     },
@@ -1367,20 +1374,54 @@
       "id": "PR_kwDOLqam7s6BGaph",
       "title": "X509 inline",
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/35",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "kenmccracken-google",
       "authorAssociation": "CONTRIBUTOR",
       "assignees": [],
       "labels": [],
       "body": "Add support for inlining the X.509 Certificate chain in the `subject_token` parameter.  \r\n\r\nThe format for an inlined X.509 Certificate Chain must match https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.6 , the X.509 Certificate chain must be validated to one of the pre-configured TrustAnchors for the Relying Party, and the X.509 Leaf certificate must match the one used during mTLS.",
       "createdAt": "2024-11-06T19:37:33Z",
-      "updatedAt": "2024-11-06T19:37:33Z",
+      "updatedAt": "2024-11-19T14:41:37Z",
       "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
       "baseRefName": "main",
       "baseRefOid": "29be11417c12f1eb221d8315c60ffb4cf7cec933",
       "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
       "headRefName": "x509-inline",
       "headRefOid": "02f74f24012ad4c8a80bdeebcc6290a8ac81149f",
+      "closedAt": "2024-11-19T14:41:36Z",
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [
+        {
+          "author": "kenmccracken-google",
+          "authorAssociation": "CONTRIBUTOR",
+          "body": "PR #38 subsumes this PR.  Closing this PR, will follow up in the new one.",
+          "createdAt": "2024-11-19T14:41:36Z",
+          "updatedAt": "2024-11-19T14:41:36Z"
+        }
+      ],
+      "reviews": []
+    },
+    {
+      "number": 38,
+      "id": "PR_kwDOLqam7s6CZnDt",
+      "title": "Add subject_token option for inline certificate chain",
+      "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/38",
+      "state": "OPEN",
+      "author": "kenmccracken-google",
+      "authorAssociation": "CONTRIBUTOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Add the option to provide the X.509 Certificate chain value inline in the subject_token for X.509 profile",
+      "createdAt": "2024-11-19T14:40:55Z",
+      "updatedAt": "2024-11-19T14:40:55Z",
+      "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
+      "baseRefName": "main",
+      "baseRefOid": "8537fa42b0bb0a4a5e10109cf30e1f9279efa49e",
+      "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
+      "headRefName": "x509-inline2",
+      "headRefOid": "5e32379c7e095a6c8d8e6973daecb82b359a7858",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
