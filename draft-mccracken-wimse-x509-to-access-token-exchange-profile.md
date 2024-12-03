@@ -66,7 +66,7 @@ TODO
 
 # Introduction
 
-TODO 
+TODO
 
 # Notational Conventions
 
