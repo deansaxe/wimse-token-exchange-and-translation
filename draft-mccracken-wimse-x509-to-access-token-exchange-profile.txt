@@ -2,42 +2,17 @@
 
 
 
-Internet Engineering Task Force (IETF)                        D. H. Saxe
-Request for Comments: 1                                                 
-Category: Informational                                      G. Fletcher
-ISSN: 2070-1721                                              Capital One
-                                                              A. Deinega
-                                                                        
-                                                            K. McCracken
-                                                                  Google
-                                                         21 October 2024
+Internet Engineering Task Force (IETF)                      K. McCracken
+Request for Comments: 1                                           Google
+Category: Informational                                  3 December 2024
+ISSN: 2070-1721
 
 
-             WIMSE Token Exchange and Translation Protocol
+              WIMSE x.509 to Access Token Exchange Profile
 
 Abstract
 
-   The specification defines the processes of token exchange and token
-   translation for workloads.  Token exchange is introduced in
-   [RFC8693], allowing the exchange of access tokens, OpenID Connect ID
-   Tokens, and SAML assertions for new OAuth access tokens.  However,
-   for workloads, there exist a broad array of input and output token
-   types which must be considered beyond the input types supported by
-   [RFC8693].  These token types include, but are not limited to, SPIFFE
-   SVIDs, x.509 certificates, Kerberos service tickets, Amazon sigv4A,
-   macaroons, <...>.  Further, these tokens may be encoded in formats
-   including JWT OAuth 2.0 Acesss Tokens [RFC9068], CWT [RFC8392], and
-   protocol buffers (protobufs).  Given the variety and complexity of
-   input and output token types and encoding, a strict token exchange
-   that maintains all of the contextual information from the input token
-   to the output token may not be possible.  We define these non-RFC8693
-   use cases with potentially lossy conversions as "token translation"
-   (e.g. information may be lost in translation).  In this document we
-   describe a workload profile for token exchange, using the mechanisms
-   in [RFC8693], and a new set of translations between arbitrary token
-   types.  Additionally, we define mechanisms to enrich tokens during
-   translation to support the use cases defined in (todo: add link to
-   use cases doc).
+   TODO
 
 Status of This Memo
 
@@ -76,53 +51,19 @@ Table of Contents
    2.  Notational Conventions
    3.  Terminology
    4.  Overview
-     4.1.  Token Context Enrichment
-     4.2.  Lossy Translation
-   5.  Token Translation Endpoint
-   6.  Token Translation Profiles
-     6.1.  X.509 Certificate to Access Token Profile
-   7.  Conventions and Definitions
-   8.  Security Considerations
-   9.  IANA Considerations
-   10. Appendices
-     10.1.  Appendix 1 - Non-normative token exchange examples
-   11. Normative References
+     4.1.  X.509 Certificate to Access Token Profile
+   5.  Conventions and Definitions
+   6.  Security Considerations
+   7.  IANA Considerations
+   8.  Appendices
+     8.1.  Appendix 1 - Non-normative token exchange examples
+   9.  Normative References
    Acknowledgments
-   Authors' Addresses
+   Author's Address
 
 1.  Introduction
 
-   This specification defines a protocol for converting from one
-   security token to another with support for both lossless and lossy
-   conversions.  We refer to the lossless exchange as "token exchange"
-   following the model defined in OAuth 2.0 Token Exchange [RFC8693].
-   In this document we profile [RFC8693] to enable OAuth token exchange
-   for workloads where the output is an OAuth Access Token or Refresh
-   Token where no data is lost during the exchange.  "Token translation"
-   describes all other conversions, including those where data loss may
-   occur during conversion.  The terms Security Token, Security Token
-   Service (STS), delegation, and impersonation are used in this
-   document following the definitions in [RFC8693].
-
-   Within the realm of workload identities, there are numerous types of
-   security tokens that are commonly used including SPIFFE SVIDs, OAuth
-   2.0 Bearer Access Tokens [RFC6750], and x.509 certificates.
-   Additionally, security tokens are encoded in multiple formats such as
-   JSON, CBOR, and protobufs.  In order to provide a mechanism for
-   interoperability between different workloads we require the ability
-   to convert from one token type or encoding to another for use across
-   disparate systems.
-
-   In addition to translating security tokens between different types
-   and formats, workload identity systems must be able to support
-   changing the cryptographic properties of tokens, embedding tokens in
-   one another, change the embedded context in a token, change the
-   validity constraints, change or add subjects to the token, or add
-   sender constraints.  This set of use cases for token exchange and
-   translation are further described in https://github.com/yaroslavros/
-   wimse-tokentranslation-requirements/blob/main/draft-rosomakho-wimse-
-   tokentranslation-requirements.md. (todo: replace with a link to the
-   ID once published.)
+   TODO
 
 2.  Notational Conventions
 
@@ -161,73 +102,9 @@ Table of Contents
 
 4.  Overview
 
-   Token translation fills a gap that development teams must solve for
-   themselves today without standardized mechanisms.  For example, a
-   common SPIFFE use case is to have a Kubernetes workload assume an AWS
-   IAM role to access an S3 bucket.  This is accomplished by creating an
-   OpenID Provider (OP) in the Kubernetes cluster and configuring AWS
-   IAM as a Relying Party (RP) to obtain an ID token from the SPIFFE
-   service.  Using the id token, AWS STS AssumeRoleWithWebIdentity
-   generates temporary sigV4 credentials for AWS allowing the workload
-   to assume an AWS role and any permissions assigned to that role.
-   Similar mechanisms have been designed to support multiple cloud
-   providers in the absence of standardized protocols.
+   TODO
 
-   Token translation accounts for different token types, formats,
-   encodings, and encyryption allowing for translation between most, but
-   not all, token types using token translation profiles.  This protocol
-   does not define the specifics of token translation between arbitrary
-   token types.  Profiles must be defined to describe token translations
-   between different token types, including any loss of context during
-   translation.  Where the input and output token are of the same type
-   and the conversion is lossless, the protocol defined within this
-   document is sufficient to meet the use cases defined in "USE CASES
-   DOC".  Not all token input/output pairs are expected to be profiled.
-
-4.1.  Token Context Enrichment
-
-   TODO - what context do we enrich tokens with during translation?
-   Embedding tokens, attestations, assertions, validity, change/add
-   subject, sender constraints.  This doc can give specific guidance on
-   adding context to a scoped set of token types that are common.  Maybe
-   a reference to the use cases is sufficient, along with a short
-   description of any fields that the translation endpoint MUST add to a
-   newly issued token.
-
-4.2.  Lossy Translation
-
-   TODO - define what we mean by lossy.  What's lost?  Does this mean
-   that some token translations lose valuable information?  TODO -
-   provide a specific lossy scenario and use case.
-
-   Translation may be lossless, such as when exchanging an input token
-   for an output token of the same format, or lossy when exchanging an
-   input token for an output token of a different format.  An example of
-   lossy translation is detailed in the example above.  In this case,
-   the aud claim of the id token maps to the AWS IAM role used to create
-   the AWS temporary credentials.  The aud (if no azp claim is present),
-   sub, and amr claims are mapped to STS Session Keys with the same
-   name.  Other claims in the id token are dropped, resulting in an loss
-   of context.
-
-   Lossy translation may impact downstream systems.  Implementers must
-   be aware of the risks of lost context through token translation.
-
-5.  Token Translation Endpoint
-
-   TODO - Define a new translation endpoint.
-
-6.  Token Translation Profiles
-
-   TODO - this draft does not define normative specs for translating
-   from arbitrary format to another arbitrary format.  Profiles
-   describing specific token translations must be developed and their
-   names (possibly?) registered with IANA.  Profiles will define any
-   losses that may occur during translation and the risks associated
-   with the loss of context.  Not all token pairs can be translated,
-   some may only be translatable in one direction.
-
-6.1.  X.509 Certificate to Access Token Profile
+4.1.  X.509 Certificate to Access Token Profile
 
    In [draft-ietf-wimse-arch (https://datatracker.ietf.org/doc/html/
    draft-ietf-wimse-arch)], Workloads may be issued Identity Credentials
@@ -317,7 +194,7 @@ Table of Contents
        *  the first subject alternative name (SAN) of type URI
 
    Compatible OAuth 2.0 Authorization Servers supporting this token
-   exchange profile MUST supports mTLS.  After the relying party has
+   exchange profile MUST support mTLS.  After the relying party has
    registered an X.509 Certificate federation profile with the OAuth 2.0
    authorization server, in order to obtain access tokens, Workloads
    MUST present their X.509 Certificates during mTLS handshakes to
@@ -347,35 +224,43 @@ Table of Contents
       security token in the context of the service or resource where the
       token will be used.
 
-   *  requested_token_type: urn:ietf:params:oauth:token-
-      type:access_token
+   *  requested_token_type: MUST be urn:ietf:params:oauth:token-
+      type:access_token for this token exchange profile.
 
-   *  subject_token: TBD.  While this field is listed as REQUIRED for
-      token exchange in Section 2.1
-      (https://datatracker.ietf.org/doc/html/rfc8693#name-request) of
-      [RFC8693 (https://datatracker.ietf.org/doc/html/rfc8693)], in this
-      case supplying the subject token again may be redundant, since it
-      was already conveyed during the mTLS handshake.  It is unclear
-      whether repeating it here adds additional value.  If supplied, it
-      introduces the possibility that the client sends the wrong value,
-      complicating client integration.  It adds network overhead of a
-      few KB, which could grow larger for longer certificate chains.  It
-      might be best to mark this as: OPTIONAL.  The Workload's X.509
-      Certificate chain.  The X.509 Certificate chain MUST chain to a
-      previously-configured Trust Anchor certificate for the relying
-      party, either directly or through one of the previously-configured
-      Intermediate CA path-building certificates.  This field MUST be
-      expressed as a PEM-encoded certificate chain with newline
-      characters removed.
+   *  subject_token: REQUIRED.  Either the fixed string
+      mtls_client_certificate or an X.509 Certificate Chain value.
+      Whether conveyed by-reference to mTLS using
+      mtls_client_certificate or as an X.509 Certificate Chain value,
+      the Authorization Server MUST validate that the X.509 Certificate
+      chain can be validated by a path to a previously-configured Trust
+      Anchor certificate for the relying party, either directly or
+      through one of the previously-configured Intermediate CA path-
+      building certificates.
 
-   *  subject_token_type: urn:ietf:params:oauth:token-type:mtls
+      -  The value mtls_client_certificate instructs the Authorization
+         Server to obtain the subject token from the client's mTLS
+         Certificate message, as defined in Section 2
+         (https://datatracker.ietf.org/doc/html/rfc8446#section-2) of
+         [RFC8446 (https://datatracker.ietf.org/doc/html/rfc8446)].
 
-   The request MAY ONLY be accepted if the X.509 Certificate used during
-   mTLS chain to a previously-configured Trust Anchor via a certificate
-   path that may include previously-configured intermediate CA
-   certificates.  The previously-configured subject claim selector must
-   be provide a non-blank string from the certificate.  The previously-
-   configured conditions must accept the X.509 Certificate.
+      -  Any value other than mtls_client_certificate MUST be parsed as
+         an X.509 Certificate Chain for this token exchange profile.
+         The X.509 Certificate chain MUST be formatted as described in
+         the "x5c" (X.509 Certificate Chain) Header Parameter in
+         Section 4.1.6 (https://www.rfc-editor.org/rfc/
+         rfc7515.html#section-4.1.6) of [RFC7515 (https://www.rfc-
+         editor.org/rfc/rfc7515.html)].  The leaf X.509 Certificate used
+         in the subject_token MUST match the leaf X.509 Certificate used
+         during mTLS.* subject_token_type: MUST be
+         urn:ietf:params:oauth:token-type:mtls for this token exchange
+         profile.
+
+   The request MUST ONLY be accepted if the X.509 Certificate used
+   during mTLS chain to a previously-configured Trust Anchor via a
+   certificate path that may include previously-configured intermediate
+   CA certificates.  The previously-configured subject claim selector
+   MUST select a non-blank string from the certificate.  The previously-
+   configured conditions MUST accept the X.509 Certificate.
 
    The response document contains the following properties (per [RFC8693
    (https://datatracker.ietf.org/doc/html/rfc8693)]):
@@ -416,7 +301,7 @@ Table of Contents
    Certificate was used during the mTLS handshake to the Resource
    Server.
 
-7.  Conventions and Definitions
+5.  Conventions and Definitions
 
    The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
    "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
@@ -424,45 +309,19 @@ Table of Contents
    BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
    capitals, as shown here.
 
-8.  Security Considerations
+6.  Security Considerations
 
-   As countermeasures against replay attacks and various forms of
-   misuse, an authorization server performing token exchange - MUST
-   ensure a client (whether it is an OAuth client or a workload) is
-   allowed to perform such operation. - SHOULD ensure that a provided
-   security token allows to perform such operation on it. - SHOULD
-   ensure it itseld, as an AS, is the intended audience of a token being
-   exchanged.  It is typical for self-contained tokens to include the
-   aud claim (an array of strings) representing their intended audience
-   (other types of tokens provide other means for the same). - a value
-   in the subject_token_type parameter MUST correspond to an actual type
-   of a security token provided in the subject_token parameter
-   ([RFC8693]).  These countermeasures become even more significant when
-   an entity issuing security tokens and an AS performing exchange of
-   them reside in different security domains.
+   TODO
 
-   An extra care should be taken for tokens that can be passed around
-   using the front channel, and for those tokens that do not explicitly
-   define their type.  Examples here would be OpenID Connect ID Token,
-   and various assertions represented as JWTs.
-
-   TODO Security - data loss in token translation may impact authZ
-   decisions.  Be careful when allowing multiple token translations
-   since losses may grow over each step of translation.
-
-   Embedding input tokens into output tokens can reduce this risk by
-   allowing more complete context, at the risk of expanding the token
-   size beyond what is practical.
-
-9.  IANA Considerations
+7.  IANA Considerations
 
    This document has no IANA actions.
 
-10.  Appendices
+8.  Appendices
 
-10.1.  Appendix 1 - Non-normative token exchange examples
+8.1.  Appendix 1 - Non-normative token exchange examples
 
-11.  Normative References
+9.  Normative References
 
    [OIDC]     Sakimura, N., Bradley, J., Jones, M., Medeiros, B. de.,
               and C. Mortimore, "OpenID Connect Core 1.0 incorporating
@@ -500,20 +359,7 @@ Acknowledgments
 
    TODO acknowledge.
 
-Authors' Addresses
-
-   Dean H. Saxe
-   Email: dean@thesax.es
-
-
-   George Fletcher
-   Capital One
-   Email: george.fletcher@capitalone.com
-
-
-   Andrii Deinega
-   Email: andrii.deinega@gmail.com
-
+Author's Address
 
    Ken McCracken
    Google
