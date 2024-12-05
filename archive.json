@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-12-03T01:24:08.225885+00:00",
+  "timestamp": "2024-12-05T01:24:20.837989+00:00",
   "repo": "deansaxe/wimse-token-exchange-and-translation",
   "labels": [
     {
@@ -395,7 +395,7 @@
       "comments": [
         {
           "author": "kenmccracken-google",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "Thanks, @deansaxe .  This looks good.  I'll modify my previous PR #35 to port the changes into this new file.",
           "createdAt": "2024-11-13T23:50:29Z",
           "updatedAt": "2024-11-13T23:50:29Z"
@@ -409,7 +409,7 @@
         },
         {
           "author": "kenmccracken-google",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "@deansaxe it is complete, please see PR #38",
           "createdAt": "2024-11-19T14:42:29Z",
           "updatedAt": "2024-11-19T14:42:29Z"
@@ -1207,7 +1207,7 @@
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/28",
       "state": "MERGED",
       "author": "kenmccracken-google",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add a profile for token exchange starting from an mTLS session, together with an appropriate request to the authorization server's token endpoint.  Add some terminology definitions.  Add a description of the relying party registration, but without constraining the registration syntax.",
@@ -1285,7 +1285,7 @@
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/31",
       "state": "MERGED",
       "author": "kenmccracken-google",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Based on suggestions from today's office hours meeting, update the subject_token to require a string constant value.  Also fixed grammar and added some MUSTs where appropriate.",
@@ -1376,7 +1376,7 @@
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/35",
       "state": "CLOSED",
       "author": "kenmccracken-google",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add support for inlining the X.509 Certificate chain in the `subject_token` parameter.  \r\n\r\nThe format for an inlined X.509 Certificate Chain must match https://www.rfc-editor.org/rfc/rfc7515.html#section-4.1.6 , the X.509 Certificate chain must be validated to one of the pre-configured TrustAnchors for the Relying Party, and the X.509 Leaf certificate must match the one used during mTLS.",
@@ -1395,7 +1395,7 @@
       "comments": [
         {
           "author": "kenmccracken-google",
-          "authorAssociation": "CONTRIBUTOR",
+          "authorAssociation": "COLLABORATOR",
           "body": "PR #38 subsumes this PR.  Closing this PR, will follow up in the new one.",
           "createdAt": "2024-11-19T14:41:36Z",
           "updatedAt": "2024-11-19T14:41:36Z"
@@ -1408,24 +1408,26 @@
       "id": "PR_kwDOLqam7s6CZnDt",
       "title": "Add subject_token option for inline certificate chain",
       "url": "https://github.com/deansaxe/wimse-token-exchange-and-translation/pull/38",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "kenmccracken-google",
-      "authorAssociation": "CONTRIBUTOR",
+      "authorAssociation": "COLLABORATOR",
       "assignees": [],
       "labels": [],
       "body": "Add the option to provide the X.509 Certificate chain value inline in the subject_token for X.509 profile",
       "createdAt": "2024-11-19T14:40:55Z",
-      "updatedAt": "2024-11-19T14:40:55Z",
+      "updatedAt": "2024-12-03T15:48:19Z",
       "baseRepository": "deansaxe/wimse-token-exchange-and-translation",
       "baseRefName": "main",
       "baseRefOid": "8537fa42b0bb0a4a5e10109cf30e1f9279efa49e",
       "headRepository": "kenmccracken-google/wimse-token-exchange-and-translation",
       "headRefName": "x509-inline2",
-      "headRefOid": "5e32379c7e095a6c8d8e6973daecb82b359a7858",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "8d9906776c5e2026e850837f4e63b5fb9d85371d",
+      "closedAt": "2024-12-03T15:48:19Z",
+      "mergedAt": "2024-12-03T15:48:19Z",
+      "mergedBy": "deansaxe",
+      "mergeCommit": {
+        "oid": "4094c4107c1f0935d735d69baf4b72ab0f217ed1"
+      },
       "comments": [],
       "reviews": []
     }
